@@ -1,0 +1,21 @@
+{
+  "name": "rentstyle-backend",
+  "version": "1.0.0",
+  "description": "Backend Repository for RentStyle Application Submitted for Entrepreneur Track Capstone Project",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev":"nodemon ./src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7",
+    "sequelize": "^6.37.3"
+  }
+}
