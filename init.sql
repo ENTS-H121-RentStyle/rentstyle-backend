@@ -1,0 +1,1 @@
+INSERT INTO `products` (`product_id`, `product_name`, `category`, `color`, `size`, `desc`, `price`, `count_num_rating`, `avg_rating`) VALUES ('5765033751', 'Baju Bianca', 'Cosplay', 'Biru', 'L', 'Baju Waifu', '100000', '69', '4.5');

@@ -1,19 +1,20 @@
 import express, { json } from "express";
-import { config } from 'dotenv';
-import productRouter from "./routes/product_route.js";
+import { config } from "dotenv";
+// import cors from "cors";
+import routerApi from "./routes/index.js";
 
 config();
 const app = express();
 const port = process.env.PORT;
 
+// app.use(cors);
 app.use(json());
 
 app.get("/", (req, res) => {
   res.send("Rentstyle Backend");
 });
 
-// Menggunakan router untuk rute "/test"
-app.use("/", productRouter);
+routerApi(app);
 
 // Menjalankan server
 app.listen(port, () => {
