@@ -6,8 +6,8 @@ const router = Router();
 
 router
   .post("/", tokenAuth, Controller.addCart)
-  .get("/:id", Controller.findUserCart)
-  .put("/:id", Controller.editCart)
-  .delete("/:id", Controller.drop);
+  .get("/:id", tokenAuth, Controller.findUserCart)
+  .put("/:id", tokenAuth, Controller.editCart)
+  .delete("/:id", tokenAuth, Controller.drop);
 
 export default router;
