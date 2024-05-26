@@ -31,7 +31,7 @@ const CartSchema = {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   },
-  user_id: {
+  customer_id: {
     type: DataTypes.STRING,
   },
 };

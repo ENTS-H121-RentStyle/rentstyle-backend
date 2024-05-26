@@ -28,6 +28,10 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  image: {
+    allowNull: false,
+    type: DataTypes.STRING
+  },
   color: {
     allowNull: false,
     type: DataTypes.STRING
