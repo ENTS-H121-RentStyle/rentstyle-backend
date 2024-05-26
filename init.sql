@@ -1,1 +1,1 @@
-INSERT INTO `products` (`product_id`, `product_name`, `category`, `image`, `color`, `size`, `desc`, `price`, `count_num_rating`, `avg_rating`) VALUES ('5765033751', 'Baju Bianca', 'Cosplay', '404','Biru', 'L', 'Baju Waifu', '100000', '69', '4.5');
+INSERT INTO `products` (`product_id`, `product_name`, `seller_id`, `category`, `image`, `color`, `size`, `desc`, `price`, `count_num_rating`, `avg_rating`) VALUES ('5765033751', 'Baju Bianca', 'Anime Collection', 'Cosplay', '404','Biru', 'L', 'Baju Waifu', '100000', '69', '4.5');

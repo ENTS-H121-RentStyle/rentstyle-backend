@@ -24,6 +24,10 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  seller_id:{
+    allowNull: false,
+    type: DataTypes.STRING
+  },
   category: {
     allowNull: false,
     type: DataTypes.STRING,
