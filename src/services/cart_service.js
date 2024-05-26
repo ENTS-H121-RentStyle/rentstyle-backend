@@ -1,7 +1,7 @@
 import "../configs/database.js";
+import crypto from "crypto";
 import { Cart } from "../models/cart_model.js";
 import { Product } from "../models/product_model.js";
-import crypto from "crypto";
 
 class CartService {
   constructor() {}

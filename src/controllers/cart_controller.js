@@ -36,7 +36,7 @@ const addCart = async (req, res) => {
     }
   }
   
-  const drop = async (req, res) => {
+  const dropCart = async (req, res) => {
     try {
       const { id } = req.params //cart_id
       const response = await service.delete(id)
@@ -46,4 +46,4 @@ const addCart = async (req, res) => {
     }
   }
 
-export default {addCart, findUserCart, editCart, drop}
+export default {addCart, findUserCart, editCart, dropCart}

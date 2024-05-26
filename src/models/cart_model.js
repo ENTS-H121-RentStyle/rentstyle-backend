@@ -32,6 +32,7 @@ const CartSchema = {
     onDelete: 'CASCADE',
   },
   customer_id: {
+    allowNull: false,
     type: DataTypes.STRING,
   },
 };
