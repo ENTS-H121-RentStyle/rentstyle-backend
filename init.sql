@@ -1,2 +1,2 @@
 INSERT INTO `products` (`product_id`, `product_name`, `seller_id`, `category`, `image`, `color`, `size`, `desc`, `price`, `count_num_rating`, `avg_rating`) VALUES ('5765033751', 'Baju Bianca', 'S111', 'Cosplay', '404','Biru', 'L', 'Baju Waifu', '100000', '69', '4.5');
-INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`, `category`, `color_pref`, `size_pref`, `count_num_rating`, `avg_rating`) VALUES ('C111', 'Yoga', 'dhy', 'dhy', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VALUES ('C111', 'Yoga', NULL, NULL, NULL);
