@@ -11,6 +11,16 @@ const addCustomer = async (req, res) => {
   }
 };
 
+const getDetailCustomer = async (req, res) => {
+  try {
+    const { id } = req.params
+    const response = await service.readOne(id)
+    res.json(response)
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message })
+  }
+}
+
 const editCustomer = async (req, res) => {
   try {
     const { id } = req.params;
@@ -32,4 +42,4 @@ const dropCustomer = async (req, res) => {
   }
 };
 
-export default { addCustomer, editCustomer, dropCustomer}
+export default { addCustomer, getDetailCustomer, editCustomer, dropCustomer}
