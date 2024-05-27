@@ -10,7 +10,11 @@ const setupModels = (sequelize) => {
   Preference.init(PreferenceSchema, Preference.config(sequelize))
 
   Cart.belongsTo(Product, { foreignKey: "product_id" });
+  
+  Customer.hasOne(Cart, {foreignKey: "customer_id"})
   Cart.belongsTo(Customer, { foreignKey: "customer_id" });
+
+  Preference.hasOne(Customer, { foreignKey: 'pref_id' });
   Customer.belongsTo(Preference, { foreignKey: "pref_id" })
 };
 

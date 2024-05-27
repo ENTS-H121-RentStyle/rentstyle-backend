@@ -13,7 +13,7 @@ const addCart = async (req, res) => {
   const findUserCart = async (req, res) => {
     try {
       const { id } = req.params //customer_id
-      const response = await service.read(id)
+      const response = await service.readFilter(id)
 
       const sanitizedResponse = response.map(item => {
         const { product_id, ...rest } = item.toJSON();

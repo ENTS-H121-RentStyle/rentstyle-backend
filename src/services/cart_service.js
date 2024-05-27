@@ -12,7 +12,9 @@ class CartService {
     return res;
   }
 
-  async read(userId) {
+  async readAll(){}
+
+  async readFilter(userId) {
     const res = await Cart.findAll({
       where: { customer_id: userId },
       include: [
