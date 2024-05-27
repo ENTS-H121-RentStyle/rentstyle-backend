@@ -11,9 +11,29 @@ const addProduct = async (req, res) => {
   }
 };
 
+const getSearch = async (req, res) => {
+  try {
+    const { q } = req.query
+    const response = await service.readSearch(q)
+    res.json(response)
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message })
+  }
+}
+
 const getAllProduct = async (req, res) => {
   try {
-    const response = await service.find()
+    const response = await service.readAll()
+    res.json(response)
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message })
+  }
+}
+
+const getFilter = async (req, res) => {
+  try {
+    const { key } = req.query
+    const response = await service.readFilter(key)
     res.json(response)
   } catch (error) {
     res.status(500).send({ success: false, message: error.message })
@@ -23,7 +43,7 @@ const getAllProduct = async (req, res) => {
 const getDetailProduct = async (req, res) => {
   try {
     const { id } = req.params
-    const response = await service.findOne(id)
+    const response = await service.readOne(id)
     res.json(response)
   } catch (error) {
     res.status(500).send({ success: false, message: error.message })
@@ -51,4 +71,4 @@ const dropProduct = async (req, res) => {
   }
 };
 
-export default { addProduct, editProduct, dropProduct, getAllProduct, getDetailProduct}
+export default { addProduct, getSearch, getAllProduct, getFilter, getDetailProduct, editProduct, dropProduct}

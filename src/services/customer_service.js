@@ -1,13 +1,16 @@
 import "../configs/database.js";
-import crypto from "crypto";
 import { Customer } from "../models/customer_model.js";
 
 class CustomerService {
   constructor() {}
 
   async create(data) {
-    const prefId = crypto.randomUUID();
-    const res = await Customer.create({ ...data, pref_id: prefId });
+    const res = await Customer.create({ ...data});
+    return res;
+  }
+
+  async readOne(productId) {
+    const res = await Customer.findByPk(productId);
     return res;
   }
 

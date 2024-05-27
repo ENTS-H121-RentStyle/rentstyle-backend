@@ -19,8 +19,8 @@ const setupModels = (sequelize) => {
   Customer.hasMany(Cart, {foreignKey: "customer_id"})
   Cart.belongsTo(Customer, { foreignKey: "customer_id" });
 
-  Preference.hasOne(Customer, { foreignKey: 'pref_id' });
-  Customer.belongsTo(Preference, { foreignKey: "pref_id" })
+  Customer.hasOne(Preference, { foreignKey: 'pref_id' });
+  Preference.belongsTo(Customer, { foreignKey: "customer_id" });
 };
 
 export default setupModels;

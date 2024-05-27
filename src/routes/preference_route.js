@@ -5,6 +5,8 @@ const router = Router();
 
 router
   .post("/", Controller.addPreference)
+  .get("/", Controller.getAllPreference)
+  .get("/:id", Controller.getPreferenceDetail)
   .put("/:id", Controller.editPreference)
   .delete("/:id", Controller.dropPreference);
 

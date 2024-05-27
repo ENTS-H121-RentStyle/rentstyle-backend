@@ -11,6 +11,24 @@ const addPreference = async (req, res) => {
   }
 };
 
+const getAllPreference = async (req, res) => {
+  try {
+    const response = await service.readAll()
+    res.json(response)
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message })
+  }
+}
+
+const getPreferenceDetail = async (req, res) => {
+  try {
+    const response = await service.readOne()
+    res.json(response)
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message })
+  }
+}
+
 const editPreference= async (req, res) => {
   try {
     const { id } = req.params;
@@ -32,4 +50,4 @@ const dropPreference = async (req, res) => {
   }
 };
 
-export default { addPreference, editPreference, dropPreference}
+export default { addPreference, getAllPreference, getPreferenceDetail, editPreference, dropPreference}

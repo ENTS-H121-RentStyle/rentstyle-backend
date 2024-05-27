@@ -16,8 +16,25 @@ class ProductService {
     return res;
   }
 
-  async readSearch() {
-    S
+  async readSearch(keyword) {
+    const res = await Product.findAll({
+      where: {
+        [Op.or]: [
+          {
+            name: {
+              [Op.like]: "%${keyword}%",
+            },
+            desc: {
+              [Op.like]: "%${keyword}%",
+            },
+            category: {
+              [Op.like]: "%${keyword}%",
+            },
+          },
+        ],
+      },
+    });
+    return res;
   }
 
   async readFilter(key) {
@@ -42,7 +59,7 @@ class ProductService {
   }
 
   async update(id, data) {
-    const model = await this.findByPk(id);
+    const model = await Product.findByPk(id);
     const res = await model.update(data);
     return res;
   }

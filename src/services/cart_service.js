@@ -12,8 +12,6 @@ class CartService {
     return res;
   }
 
-  async readAll(){}
-
   async readFilter(userId) {
     const res = await Cart.findAll({
       where: { customer_id: userId },
@@ -28,13 +26,13 @@ class CartService {
   }
 
   async update(id, data) {
-    const model = await this.findByPk(id);
+    const model = await Cart.findByPk(id);
     const res = await model.update(data);
     return res;
   }
 
   async delete(id) {
-    const model = await this.findByPk(id);
+    const model = await Cart.findByPk(id);
     await model.destroy();
     return { deleted: true };
   }

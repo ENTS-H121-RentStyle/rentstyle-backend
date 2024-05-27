@@ -32,9 +32,6 @@ const CustomerSchema = {
   },
   phone: {
     type: DataTypes.STRING
-  },
-  pref_id: {
-    type: DataTypes.STRING
   }
 };
 
