@@ -15,13 +15,13 @@ class CustomerService {
   }
 
   async update(id, data) {
-    const model = await this.findByPk(id);
+    const model = await Customer.findByPk(id);
     const res = await model.update(data);
     return res;
   }
 
   async delete(id) {
-    const model = await this.findByPk(id);
+    const model = await Customer.findByPk(id);
     await model.destroy();
     return { deleted: true };
   }

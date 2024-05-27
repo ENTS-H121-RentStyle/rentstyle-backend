@@ -65,7 +65,7 @@ class ProductService {
   }
 
   async delete(id) {
-    const model = await this.findByPk(id);
+    const model = await Product.findByPk(id);
     await model.destroy();
     return { deleted: true };
   }
