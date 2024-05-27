@@ -1,4 +1,4 @@
-// import { CustomerService } from "../services/customer_service.js";
+import { CustomerService } from "../services/customer_service.js";
 
 const service = new CustomerService();
 

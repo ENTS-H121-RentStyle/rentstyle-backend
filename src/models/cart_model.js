@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { Product } from "./product_model.js"
+import { Customer } from "./customer_model.js"
 
 const TABLE_NAME = "carts";
 
@@ -19,17 +19,11 @@ const CartSchema = {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.STRING,
-    field: "cart_id"
+    field: "cart_id",
   },
   product_id: {
     allowNull: false,
     type: DataTypes.STRING,
-    references: {
-      model: Product,
-      key: 'product_id'
-    },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
   },
   customer_id: {
     allowNull: false,

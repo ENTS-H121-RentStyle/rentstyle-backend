@@ -1,5 +1,5 @@
 import "../configs/database.js";
-// import { Customer } from "../models/customer_model.js";
+import { Customer } from "../models/customer_model.js";
 
 class CustomerService {
   constructor() {}
