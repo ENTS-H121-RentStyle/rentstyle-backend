@@ -1,41 +1,40 @@
 import { Model, DataTypes } from "sequelize";
 
-const TABLE_NAME = "customers";
+const TABLE_NAME = "preferences";
 
-class Customer extends Model {
+class Preference extends Model {
   static config(sequelize) {
     return {
       sequelize,
       tableName: TABLE_NAME,
-      modelName: "Customer",
+      modelName: "Preferences",
       timestamps: false,
     };
   }
 }
 
-const CustomerSchema = {
+const PreferenceSchema = {
   id: {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.STRING,
-    field: "customer_id",
+    field: "pref_id",
   },
-  name: {
-    allowNull: false,
+  category: {
     type: DataTypes.STRING,
   },
-  email: {
+  color: {
     type: DataTypes.STRING,
   },
-  address: {
+  size: {
     type: DataTypes.STRING
   },
-  phone: {
+  count_num_rating: {
     type: DataTypes.STRING
   },
-  pref_id: {
+  avg_rating: {
     type: DataTypes.STRING
   }
 };
 
-export { Customer, CustomerSchema };
+export { Preference, PreferenceSchema };
