@@ -23,7 +23,7 @@ class CustomerService {
   async delete(id) {
     const model = await Customer.findByPk(id);
     await model.destroy();
-    return { deleted: true };
+    return {};
   }
 }
 
