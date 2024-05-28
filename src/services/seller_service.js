@@ -14,7 +14,7 @@ class SellerService {
     async readOne(sellerId) {
         const res = await Seller.findByPk(sellerId);
         return res;
-      }
+    };
 
 
     async update(id, data) {
