@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import { Customer } from "../models/customer_model.js";
 
-const validateCustomer = [
+const validateAddCustomer = [
   body("id")
     .isString()
     .withMessage("ID harus berupa angka.")
@@ -40,4 +40,4 @@ const validateCustomer = [
     }),
 ];
 
-export default validateCustomer;
+export default validateAddCustomer;

@@ -28,13 +28,30 @@ const getDetailCustomer = async (req, res) => {
 };
 
 const editCustomer = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, errors: errors.array() });
+  }
+
+  const { id } = req.params;
+  const { name, email, address, phone } = req.body;
+
   try {
-    const { id } = req.params;
-    const body = req.body;
-    const response = await service.update(id, body);
-    res.json(response);
+    const customer = await Customer.findByPk(id);
+    if (!customer) {
+      return res.status(404).json({ success: false, message: "Customer tidak ditemukan" });
+    }
+
+    customer.name = name || customer.name;
+    customer.email = email || customer.email;
+    customer.address = address || customer.address;
+    customer.phone = phone || customer.phone;
+
+    await customer.save();
+
+    res.status(200).json({ success: true, data: customer });
   } catch (error) {
-    res.status(500).send({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
