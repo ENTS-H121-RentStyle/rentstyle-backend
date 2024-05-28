@@ -4,7 +4,7 @@ import { Customer } from "../models/customer_model.js";
 const validateAddCustomer = [
   body("id")
     .isString()
-    .withMessage("ID harus berupa angka.")
+    .withMessage("ID harus berupa String.")
     .custom(async (value) => {
       const existingCustomer = await Customer.findByPk(value);
       if (existingCustomer) {

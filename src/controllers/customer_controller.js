@@ -5,6 +5,7 @@ import { Customer } from "../models/customer_model.js";
 const service = new CustomerService();
 
 const addCustomer = async (req, res) => {
+  
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -35,7 +36,7 @@ const editCustomer = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { name, address, phone } = req.body;
+  const body = req.body;
 
   try {
     const customer = await Customer.findByPk(id);
@@ -43,12 +44,7 @@ const editCustomer = async (req, res) => {
       return res.status(404).json({message: "Customer tidak ditemukan" });
     }
 
-    customer.name = name || customer.name;
-    customer.address = address || customer.address;
-    customer.phone = phone || customer.phone;
-
-    await customer.save();
-
+    const response = await service.update(id, body);
     res.status(200).json(customer);
   } catch (error) {
     res.status(500).json({ message: error.message });
