@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator";
 import { CustomerService } from "../services/customer_service.js";
+import { Customer } from "../models/customer_model.js";
 
 const service = new CustomerService();
 
@@ -13,7 +14,7 @@ const addCustomer = async (req, res) => {
     const response = await service.create(req.body);
     res.status(201).json(response);
   } catch (error) {
-    res.status(500).send({ success: false, message: error.message });
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -30,28 +31,27 @@ const getDetailCustomer = async (req, res) => {
 const editCustomer = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, errors: errors.array() });
+    return res.status(400).json({errors: errors.array() });
   }
 
   const { id } = req.params;
-  const { name, email, address, phone } = req.body;
+  const { name, address, phone } = req.body;
 
   try {
     const customer = await Customer.findByPk(id);
     if (!customer) {
-      return res.status(404).json({ success: false, message: "Customer tidak ditemukan" });
+      return res.status(404).json({message: "Customer tidak ditemukan" });
     }
 
     customer.name = name || customer.name;
-    customer.email = email || customer.email;
     customer.address = address || customer.address;
     customer.phone = phone || customer.phone;
 
     await customer.save();
 
-    res.status(200).json({ success: true, data: customer });
+    res.status(200).json(customer);
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -61,7 +61,7 @@ const dropCustomer = async (req, res) => {
     const response = await service.delete(id);
     res.json(response);
   } catch (error) {
-    res.status(500).send({ success: false, message: error.message });
+    res.status(500).send({ message: error.message });
   }
 };
 
