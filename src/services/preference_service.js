@@ -1,6 +1,6 @@
 import "../configs/database.js";
 import crypto from "crypto";
-import { Preference } from "../models/preferensi_model.js";
+import { Preference } from "../models/preference_model.js";
 import { Customer } from "../models/customer_model.js";
 
 class PreferenceService {

@@ -1,7 +1,7 @@
 import { Product, ProductSchema } from "./product_model.js";
 import { Cart, CartSchema } from "./cart_model.js";
 import { Customer, CustomerSchema } from "./customer_model.js";
-import { Preference, PreferenceSchema } from "./preferensi_model.js";
+import { Preference, PreferenceSchema } from "./preference_model.js";
 import {Seller, SellerSchema } from "./seller_model.js";
 import { Favorite, FavoriteSchema } from "./favorite_model.js";
 

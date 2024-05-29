@@ -1,4 +1,4 @@
-import { Preference } from "../models/preferensi_model.js";
+import { Preference } from "../models/preference_model.js";
 import { PreferenceService } from "../services/preference_service.js";
 import { validationResult } from "express-validator";
 const service = new PreferenceService();

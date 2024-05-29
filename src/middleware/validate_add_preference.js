@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import { Preference } from "../models/preferensi_model.js";
+import { Preference } from "../models/preference_model.js";
 import { Product } from "../models/product_model.js";
 
 const validateAddPreference = [
