@@ -33,12 +33,6 @@ const PreferenceSchema = {
   },
   size: {
     type: DataTypes.STRING
-  },
-  count_num_rating: {
-    type: DataTypes.STRING
-  },
-  avg_rating: {
-    type: DataTypes.STRING
   }
 };
 

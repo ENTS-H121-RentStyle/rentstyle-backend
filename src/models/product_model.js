@@ -52,12 +52,6 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.FLOAT
   },
-  count_num_rating: {
-    type: DataTypes.INTEGER
-  },
-  avg_rating: {
-    type: DataTypes.FLOAT
-  },
 }
 
 export { Product, ProductSchema }

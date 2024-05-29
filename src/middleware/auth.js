@@ -1,7 +1,12 @@
 import admin from "../configs/firebase.js";
 
 const tokenAuth = async (req, res, next) => {
-  const { tokenId } = req.body;
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(400).json({ success: false, message: "Authorization header is required" });
+  }
+
+  const tokenId = authHeader.split(' ')[1];
   if (!tokenId) {
     return res.status(400).json({ success: false, message: "TokenID is required" });
   }
