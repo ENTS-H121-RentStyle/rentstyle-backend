@@ -1,5 +1,6 @@
 import "../configs/database.js";
 import crypto from "crypto";
+import { Op } from "sequelize";
 import { Favorite } from "../models/favorite_model.js";
 import { Product } from "../models/product_model.js";
 
@@ -52,18 +53,12 @@ class FavoriteService {
 
         return res;
     };
-
-    async update(id, data) {
-        const model = await Cart.findByPk(id);
-        const res = await model.update(data);
-        return res;
-      };
     
       async delete(id) {
-        const model = await Cart.findByPk(id);
+        const model = await Favorite.findByPk(id);
         await model.destroy();
         return { deleted: true };
-      };
+    };
 };
 
 export { FavoriteService };
