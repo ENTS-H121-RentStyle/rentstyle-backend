@@ -5,7 +5,7 @@ const router = Router();
 
 router
   .get("/", Controller.getAllProduct)
-  .post("/search", Controller.getSearch)
+  .get("/search", Controller.getSearch)
   .get("/filter", Controller.getFilter)
   .get("/:id", Controller.getDetailProduct)
   .post("/", Controller.addProduct)
