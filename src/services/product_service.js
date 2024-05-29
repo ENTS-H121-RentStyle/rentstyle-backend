@@ -2,7 +2,6 @@ import "../configs/database.js";
 import crypto from "crypto";
 import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
-import { Op } from "sequelize";
 
 class ProductService {
   constructor() {}
