@@ -1,6 +1,7 @@
 import "../configs/database.js";
 import crypto from "crypto";
 import { Product } from "../models/product_model.js";
+import { Op } from "sequelize";
 
 class ProductService {
   constructor() {}
@@ -21,16 +22,20 @@ class ProductService {
       where: {
         [Op.or]: [
           {
-            name: {
-              [Op.like]: "%${keyword}%",
-            },
-            desc: {
-              [Op.like]: "%${keyword}%",
-            },
-            category: {
-              [Op.like]: "%${keyword}%",
+            product_name: {
+              [Op.like]: `%${keyword}%`,
             },
           },
+          {
+            desc: {
+              [Op.like]: `%${keyword}%`,
+            },
+          },
+          {
+            category: {
+              [Op.like]: `%${keyword}%`,
+            },
+          }
         ],
       },
     });
