@@ -6,6 +6,7 @@ const router = Router();
 
 router
   .post("/", Controller.addSeller)
+  .get("/:id", Controller.getDetailSeller)
   .put("/:id", Controller.editSeller)
   .delete("/:id", Controller.dropSeller);
 
