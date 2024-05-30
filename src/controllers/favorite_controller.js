@@ -28,8 +28,8 @@ const getAllFavorite = async(req, res) => {
 
 const getSearchFavorite = async(req, res) => {
     try {
-        const { q } = req.query;
-        const response = await service.readSearch(q);
+        const { userId, q } = req.query;
+        const response = await service.readSearch(userId, q);
         res.status(200).json(response);
     } catch(error) {
         res.status(500).send({ message: error.message });
