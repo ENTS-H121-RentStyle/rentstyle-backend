@@ -39,9 +39,14 @@ const validateAddCustomer = [
       }
     }),
   body("birth_date")
-    .optional()
+    .notEmpty()
     .isDate()
     .withMessage("Tanggal lahir harus berupa tanggal"),
+  body("gender")
+    .isEmpty()
+    .notEmpty()
+    .isIn("Pria", "Wanita")
+    .withMessage("Gender tidak boleh kosong"),
 ];
 
 export default validateAddCustomer;

@@ -35,6 +35,9 @@ const CustomerSchema = {
   },
   phone: {
     type: DataTypes.STRING
+  },
+  gender: {
+    type: DataTypes.STRING
   }
 };
 

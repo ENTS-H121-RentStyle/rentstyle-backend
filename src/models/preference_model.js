@@ -20,11 +20,10 @@ const PreferenceSchema = {
     type: DataTypes.STRING,
     field: "pref_id",
   },
-  customer_id:{
+  customer_id: {
     allowNull: false,
-    type: DataTypes.STRING
-  }
-  ,
+    type: DataTypes.STRING,
+  },
   category: {
     type: DataTypes.STRING,
   },
@@ -32,8 +31,8 @@ const PreferenceSchema = {
     type: DataTypes.STRING,
   },
   size: {
-    type: DataTypes.STRING
-  }
+    type: DataTypes.STRING,
+  },
 };
 
 export { Preference, PreferenceSchema };
