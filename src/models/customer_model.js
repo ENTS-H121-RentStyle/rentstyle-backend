@@ -27,6 +27,9 @@ const CustomerSchema = {
   email: {
     type: DataTypes.STRING,
   },
+  birth_date: {
+    type: DataTypes.DATE
+  },
   address: {
     type: DataTypes.STRING
   },

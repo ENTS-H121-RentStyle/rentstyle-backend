@@ -5,7 +5,6 @@ import { Customer } from "../models/customer_model.js";
 const service = new CustomerService();
 
 const addCustomer = async (req, res) => {
-  
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
