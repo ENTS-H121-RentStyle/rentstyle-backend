@@ -23,7 +23,7 @@ class PreferenceService {
       include: [
         {
           model: Customer,
-          attributes: ["name", "email", "address"],
+          attributes: ["name", "email", "address", "birth_date", "phone"],
         },
       ],
     });

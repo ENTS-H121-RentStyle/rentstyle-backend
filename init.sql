@@ -4,7 +4,7 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
 {
   {
     "product_name": "Bianca Veritas",
-    "seller_id": {Generate by Backend}
+    "seller_id": 1,
     "category": "Cosplay",
     "image": "url",
     "color": "Hitam",
@@ -12,7 +12,7 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
     "desc": "Default Coating",
     "price": 100000
   },
-    {
+  {
     "product_name": "Bianca Veritas",
     "seller_id": {Generate by Backend}
     "category": "Cosplay",
@@ -36,10 +36,10 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
 }
 
 {
-  "tokenId": "{Firebase TokenID}",
   "id": "{Firebase UUID}",
   "name": "Yoga",
   "email": "dhyoga@gmail.com",
+  "birth_date": "2002-10-29"
   "address": "Semarang 43, Bandung",
   "phone": "089662599445"
 }
