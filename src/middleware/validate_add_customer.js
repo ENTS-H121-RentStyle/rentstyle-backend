@@ -38,6 +38,10 @@ const validateAddCustomer = [
         throw new Error("Nomor telepon sudah terdaftar.");
       }
     }),
+  body("birth_date")
+    .optional()
+    .isDate()
+    .withMessage("Tanggal lahir harus berupa tanggal"),
 ];
 
 export default validateAddCustomer;

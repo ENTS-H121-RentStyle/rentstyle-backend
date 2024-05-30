@@ -41,6 +41,11 @@ const validateEditCustomer = [
         throw new Error("Nomor telepon sudah terdaftar.");
       }
     }),
+    body("birth_date")
+    .optional()
+    .isDate()
+    .isEmpty()
+    .withMessage("Tanggal lahir harus berupa tanggal"),
 ];
 
 export default validateEditCustomer;

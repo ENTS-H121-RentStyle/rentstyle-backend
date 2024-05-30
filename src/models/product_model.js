@@ -48,7 +48,11 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.TEXT
   },
-  price: {
+  rent_price: {
+    allowNull: false,
+    type: DataTypes.FLOAT
+  },
+  product_price: {
     allowNull: false,
     type: DataTypes.FLOAT
   },
