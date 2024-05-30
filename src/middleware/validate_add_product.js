@@ -55,11 +55,6 @@ const validateAddProduct = [
         .notEmpty()
         .withMessage("Warna tidak boleh kosong."),
 
-    body("size")
-        .isString()
-        .isIn(["S", "M", "L", "XL", "XXL", "XXXL"])
-        .withMessage("Size harus salah satu dari nilai berikut: S, M, L, XL"),
-
     body("desc")
         .isString()
         .notEmpty()

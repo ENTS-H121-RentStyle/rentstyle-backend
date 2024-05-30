@@ -4,13 +4,6 @@ import { Product } from "../models/product_model.js";
 import { Customer } from "../models/customer_model.js";
 
 const validateAddFavorite = [
-    body("id")
-        .custom(async (value) => {
-            const existingFavorite = await Favorite.findByPk(value);
-            if (existingFavorite) {
-                throw new Error("ID sudah terdaftar.");
-            }
-        }),
     body("product_id")
         .isString()
         .notEmpty()
