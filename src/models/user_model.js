@@ -18,7 +18,7 @@ const UserSchema = {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.STRING,
-    field: "customer_id",
+    field: "user_id",
   },
   name: {
     allowNull: false,

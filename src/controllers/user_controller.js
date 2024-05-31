@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
-import { UserService } from "../services/user_service";
-import { User } from "../models/user_model";
+import { UserService } from "../services/user_service.js";
+import { User } from "../models/user_model.js";
 
 const service = new UserService();
 

@@ -1,13 +1,13 @@
 import { body } from "express-validator";
-import { User } from "../models/user_model";
+import { User } from "../models/user_model.js";
 
 const validateAddUser = [
   body("id")
     .isString()
     .withMessage("ID harus berupa String.")
     .custom(async (value) => {
-      const existingCustomer = await User.findByPk(value);
-      if (existingCustomer) {
+      const existingUser = await User.findByPk(value);
+      if (existingUser) {
         throw new Error("ID sudah terdaftar.");
       }
     }),
@@ -32,10 +32,10 @@ const validateAddUser = [
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value) => {
-      const existingCustomer = await User.findOne({
+      const existingUser = await User.findOne({
         where: { phone: value },
       });
-      if (existingCustomer) {
+      if (existingUser) {
         throw new Error("Nomor telepon sudah terdaftar.");
       }
     }),

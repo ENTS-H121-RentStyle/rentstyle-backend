@@ -20,7 +20,7 @@ const validateAddCart = [
     .custom(async (value) => {
       const existingUser = await User.findByPk(value);
       if (!existingUser) {
-        throw new Error("Customer dengan ID tersebut tidak ditemukan.");
+        throw new Error("User dengan ID tersebut tidak ditemukan.");
       }
     }),
 ];

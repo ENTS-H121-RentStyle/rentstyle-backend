@@ -28,7 +28,7 @@ const SizeSchema = {
     allowNull: false,
     type: DataTypes.INTEGER
   },
-  customer_id: {
+  size_id: {
     allowNull: false,
     type: DataTypes.STRING,
   },

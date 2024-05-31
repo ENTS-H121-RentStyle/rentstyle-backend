@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { Op } from "sequelize";
-import { User } from "../models/user_model";
+import { User } from "../models/user_model.js";
 
 const validateEditUser = [
   body("id").custom((value, { req }) => {
