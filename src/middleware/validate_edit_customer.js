@@ -26,6 +26,7 @@ const validateEditCustomer = [
     .withMessage("Alamat tidak boleh kosong."),
   body("phone")
     .optional()
+    .notEmpty()
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value, { req }) => {
@@ -44,10 +45,9 @@ const validateEditCustomer = [
   body("birth_date")
     .optional()
     .isDate()
-    .isEmpty()
+    .notEmpty()
     .withMessage("Tanggal lahir harus berupa tanggal"),
   body("gender")
-    .isEmpty()
     .notEmpty()
     .isIn("Pria", "Wanita")
     .withMessage("Gender tidak boleh kosong"),

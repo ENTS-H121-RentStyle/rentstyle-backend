@@ -1,32 +1,32 @@
 import { Model, DataTypes } from "sequelize";
 
-const TABLE_NAME = "carts";
+const TABLE_NAME = "sizes";
 
-class Cart extends Model {
+class Size extends Model {
   static config(sequelize) {
     return {
       sequelize,
       tableName: TABLE_NAME,
-      modelName: "Cart",
+      modelName: "size",
       timestamps: false,
     };
   }
 }
 
-const CartSchema = {
+const SizeSchema = {
   id: {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.STRING,
-    field: "cart_id",
+    field: "size_id",
   },
-  product_id: {
+  size: {
     allowNull: false,
     type: DataTypes.STRING,
   },
-  size_id: {
+  stocks: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.INTEGER
   },
   customer_id: {
     allowNull: false,
@@ -34,4 +34,4 @@ const CartSchema = {
   },
 };
 
-export { Cart, CartSchema };
+export { Size, SizeSchema };

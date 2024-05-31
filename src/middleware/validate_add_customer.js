@@ -13,6 +13,7 @@ const validateAddCustomer = [
     }),
   body("name").isString().notEmpty().withMessage("Nama tidak boleh kosong."),
   body("email")
+    .notEmpty()
     .isEmail()
     .withMessage("Email tidak valid.")
     .custom(async (value) => {
@@ -43,7 +44,6 @@ const validateAddCustomer = [
     .isDate()
     .withMessage("Tanggal lahir harus berupa tanggal"),
   body("gender")
-    .isEmpty()
     .notEmpty()
     .isIn("Pria", "Wanita")
     .withMessage("Gender tidak boleh kosong"),
