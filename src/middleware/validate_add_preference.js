@@ -3,12 +3,12 @@ import { Preference } from "../models/preference_model.js";
 import { Product } from "../models/product_model.js";
 
 const validateAddPreference = [
-  body("customer_id")
+  body("user_id")
     .isString()
     .withMessage("ID harus berupa String")
     .custom(async (value) => {
       const existingPreference = await Preference.findOne({
-        where: { customer_id: value },
+        where: { user_id: value },
       });
       if (existingPreference) {
         throw new Error("ID sudah memiliki Preference");

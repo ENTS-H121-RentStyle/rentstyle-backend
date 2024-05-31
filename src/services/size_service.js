@@ -11,6 +11,11 @@ class SizeService {
     return res;
   }
 
+  async readOne(sizeId) {
+    const res = await Size.findByPk(sizeId);
+    return res;
+  }
+
   async readFilter(userId) {
     const res = await Size.findAll({
       where: { customer_id: userId },

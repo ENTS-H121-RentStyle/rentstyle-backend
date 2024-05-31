@@ -14,7 +14,7 @@ class CartService {
 
   async readFilter(userId) {
     const res = await Cart.findAll({
-      where: { customer_id: userId },
+      where: { user_id: userId },
       include: [
         {
           model: Product,

@@ -11,7 +11,7 @@ const addCart = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { customer_id, product_id, size_id } = req.body;
+  const { user_id, product_id, size_id } = req.body;
   try {
     const findSize = await Size.findOne({
       where: {
@@ -34,7 +34,7 @@ const addCart = async (req, res) => {
       where: {
         [Op.and]: [
           {
-            customer_id: customer_id,
+            user_id: user_id,
           },
           {
             product_id: product_id,

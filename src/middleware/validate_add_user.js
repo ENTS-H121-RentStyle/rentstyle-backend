@@ -1,12 +1,12 @@
 import { body } from "express-validator";
-import { Customer } from "../models/customer_model.js";
+import { User } from "../models/user_model";
 
-const validateAddCustomer = [
+const validateAddUser = [
   body("id")
     .isString()
     .withMessage("ID harus berupa String.")
     .custom(async (value) => {
-      const existingCustomer = await Customer.findByPk(value);
+      const existingCustomer = await User.findByPk(value);
       if (existingCustomer) {
         throw new Error("ID sudah terdaftar.");
       }
@@ -17,10 +17,10 @@ const validateAddCustomer = [
     .isEmail()
     .withMessage("Email tidak valid.")
     .custom(async (value) => {
-      const existingCustomer = await Customer.findOne({
+      const existingUser = await User.findOne({
         where: { email: value },
       });
-      if (existingCustomer) {
+      if (existingUser) {
         throw new Error("Email sudah terdaftar.");
       }
     }),
@@ -32,7 +32,7 @@ const validateAddCustomer = [
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value) => {
-      const existingCustomer = await Customer.findOne({
+      const existingCustomer = await User.findOne({
         where: { phone: value },
       });
       if (existingCustomer) {
@@ -49,4 +49,4 @@ const validateAddCustomer = [
     .withMessage("Gender tidak boleh kosong"),
 ];
 
-export default validateAddCustomer;
+export default validateAddUser;

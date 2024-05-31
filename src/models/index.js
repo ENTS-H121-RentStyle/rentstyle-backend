@@ -1,6 +1,6 @@
 import { Product, ProductSchema } from "./product_model.js";
 import { Cart, CartSchema } from "./cart_model.js";
-import { Customer, CustomerSchema } from "./customer_model.js";
+import { User, UserSchema } from "./user_model.js";
 import { Preference, PreferenceSchema } from "./preference_model.js";
 import { Seller, SellerSchema } from "./seller_model.js";
 import { Favorite, FavoriteSchema } from "./favorite_model.js";
@@ -11,7 +11,7 @@ const setupModels = (sequelize) => {
   Product.init(ProductSchema, Product.config(sequelize));
   Size.init(SizeSchema, Size.config(sequelize));
   Cart.init(CartSchema, Cart.config(sequelize));
-  Customer.init(CustomerSchema, Customer.config(sequelize));
+  User.init(UserSchema, User.config(sequelize));
   Preference.init(PreferenceSchema, Preference.config(sequelize));
   Seller.init(SellerSchema, Seller.config(sequelize));
   Favorite.init(FavoriteSchema, Favorite.config(sequelize));
@@ -23,14 +23,14 @@ const setupModels = (sequelize) => {
   Cart.belongsTo(Product, { foreignKey: "product_id" });
   Favorite.belongsTo(Product, { foreignKey: "product_id" });
 
-  Customer.hasMany(Cart, { foreignKey: "customer_id" });
-  Cart.belongsTo(Customer, { foreignKey: "customer_id" });
+  User.hasMany(Cart, { foreignKey: "user_id" });
+  Cart.belongsTo(User, { foreignKey: "user_id" });
 
-  Customer.hasMany(Favorite, { foreignKey: "customer_id" }),
-    Favorite.belongsTo(Customer, { foreignKey: "customer_id" });
+  Customer.hasMany(Favorite, { foreignKey: "customer_id" });
+  Favorite.belongsTo(Customer, { foreignKey: "customer_id" });
 
-  Customer.hasOne(Preference, { foreignKey: "pref_id" });
-  Preference.belongsTo(Customer, { foreignKey: "customer_id" });
+  User.hasOne(Preference, { foreignKey: "pref_id" });
+  Preference.belongsTo(User, { foreignKey: "user_id" });
 
   Size.belongsTo(Product, { foreignKey: "product_id" });
 };

@@ -1,10 +1,10 @@
 import { validationResult } from "express-validator";
-import { CustomerService } from "../services/customer_service.js";
-import { Customer } from "../models/customer_model.js";
+import { UserService } from "../services/user_service";
+import { User } from "../models/user_model";
 
-const service = new CustomerService();
+const service = new UserService();
 
-const addCustomer = async (req, res) => {
+const addUser = async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -18,7 +18,7 @@ const addCustomer = async (req, res) => {
   }
 };
 
-const getDetailCustomer = async (req, res) => {
+const findDetailUser = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await service.readOne(id);
@@ -28,7 +28,7 @@ const getDetailCustomer = async (req, res) => {
   }
 };
 
-const editCustomer = async (req, res) => {
+const editUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({errors: errors.array() });
@@ -38,19 +38,19 @@ const editCustomer = async (req, res) => {
   const body = req.body;
 
   try {
-    const customer = await Customer.findByPk(id);
-    if (!customer) {
-      return res.status(404).json({message: "Customer tidak ditemukan" });
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({message: "User tidak ditemukan" });
     }
 
     const response = await service.update(id, body);
-    res.status(200).json(customer);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const dropCustomer = async (req, res) => {
+const dropUser = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await service.delete(id);
@@ -60,4 +60,4 @@ const dropCustomer = async (req, res) => {
   }
 };
 
-export default { addCustomer, getDetailCustomer, editCustomer, dropCustomer };
+export default { addUser, findDetailUser, editUser, dropUser };

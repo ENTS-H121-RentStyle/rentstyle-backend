@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { Customer } from "./customer_model.js"
+import { Customer } from "./user_model.js"
 
 const  TABLE_NAME = "favorites";
 

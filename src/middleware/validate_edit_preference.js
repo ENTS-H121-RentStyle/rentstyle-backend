@@ -8,7 +8,7 @@ const validateEditPreference = [
     }
     return true;
   }),
-  body("customer_id").custom((value, { req }) => {
+  body("user_id").custom((value, { req }) => {
     if (value !== undefined) {
       throw new Error("ID tidak boleh diubah.");
     }

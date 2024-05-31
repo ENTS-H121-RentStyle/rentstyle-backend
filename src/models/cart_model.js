@@ -28,7 +28,7 @@ const CartSchema = {
     allowNull: false,
     type: DataTypes.STRING
   },
-  customer_id: {
+  user_id: {
     allowNull: false,
     type: DataTypes.STRING,
   },
