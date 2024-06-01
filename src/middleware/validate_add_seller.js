@@ -40,6 +40,11 @@ const validateAddSeller = [
         .notEmpty()
         .withMessage("Deskripsi tidak boleh kosong."),
 
+    body("city")
+        .isString()
+        .isIn(["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"])
+        .withMessage("Kota harus salah satu dari nilai berikut: Jakarta, Bogor, Depok, Tangerang, Bekasi"),
+
     // body("image")
     //     .isString()
     //     .custom((value, { req }) => {

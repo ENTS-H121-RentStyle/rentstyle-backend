@@ -27,6 +27,11 @@ const validateEditSeller = [
         .optional()
         .notEmpty()
         .withMessage("Deskripsi tidak boleh kosong."),
+    body("city")
+        .optional()
+        .isString()
+        .isIn(["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"])
+        .withMessage("Kota harus salah satu dari nilai berikut: Jakarta, Bogor, Depok, Tangerang, Bekasi"),
 ];
 
 export default validateEditSeller;

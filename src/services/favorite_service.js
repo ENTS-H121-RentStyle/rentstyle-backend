@@ -46,7 +46,7 @@ class FavoriteService {
       include: [
         {
           model: Product,
-          attributes: ["product_name", "image", "price"],
+          attributes: ["product_name", "image", "rent_price", "product_price"],
         },
       ],
     });

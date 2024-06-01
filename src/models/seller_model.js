@@ -35,6 +35,9 @@ const SellerSchema = {
     },
     image: {
         type:DataTypes.STRING
+    },
+    city: {
+        type: DataTypes.STRING
     }
 };
 
