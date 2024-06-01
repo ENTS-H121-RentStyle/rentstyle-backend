@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import { Favorite } from "../models/favorite_model.js";
 import { Product } from "../models/product_model.js";
-import { Customer } from "../models/customer_model.js";
+import { User } from "../models/user_model.js";
 
 const validateAddFavorite = [
     body("product_id")
@@ -14,14 +14,14 @@ const validateAddFavorite = [
                 throw new Error("Product dengan ID tersebut tidak ditemukan.");
             }
         }),
-    body("customer_id")
+    body("user_id")
         .isString()
         .notEmpty()
-        .withMessage("Customer ID tidak boleh kosong.")
+        .withMessage("User ID tidak boleh kosong.")
         .custom(async (value) => {  
-            const existingCustomer = await Customer.findByPk(value);
-            if (!existingCustomer) {
-                throw new Error("Customer dengan ID tersebut tidak ditemukan.");
+            const existingUser = await User.findByPk(value);
+            if (!existingUser) {
+                throw new Error("User dengan ID tersebut tidak ditemukan.");
             }
         })   
 ];

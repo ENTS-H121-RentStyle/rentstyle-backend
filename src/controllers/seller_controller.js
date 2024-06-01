@@ -2,7 +2,7 @@ import { SellerService } from "../services/seller_service.js";
 import { validationResult } from "express-validator";
 import { Seller } from "../models/seller_model.js"; 
 import { Op } from "sequelize";
-import { Customer } from "../models/customer_model.js";
+import { User } from "../models/user_model.js";
 
 
 const service = new SellerService();
@@ -14,15 +14,15 @@ const addSeller = async(req, res) => {
         return res.status(400).json({ errors: errors.array() });
     };
 
-    const { customer_id, email } = req.body;
+    const { user_id, email } = req.body;
 
 
     try {
-        const existingCustomer = await Customer.findOne({
+        const existingUser = await User.findOne({
             where: {
                 [Op.and]: [
                     { 
-                        customer_id: customer_id,
+                        user_id: user_id,
                     },
                     {
                         email: email, 
@@ -31,8 +31,8 @@ const addSeller = async(req, res) => {
             },
         });
 
-        if (!existingCustomer) {
-            return res.status(400).json({ message: "Customer tidak ditemukan." });
+        if (!existingUser) {
+            return res.status(400).json({ message: "User tidak ditemukan." });
         };  
 
         const response = await service.create(req.body);

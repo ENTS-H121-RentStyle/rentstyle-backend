@@ -20,7 +20,7 @@ class FavoriteService {
 
   async readSearch(userId, keyword) {
     const res = await Favorite.findAll({
-      where: { customer_id: userId },
+      where: { user_id: userId },
       include: [
         {
           model: Product,
@@ -41,7 +41,7 @@ class FavoriteService {
   async readFilter(userId) {
     const res = await Favorite.findAll({
       where: {
-        customer_id: userId,
+        user_id: userId,
       },
       include: [
         {

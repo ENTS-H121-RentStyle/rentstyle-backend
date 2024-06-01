@@ -1,5 +1,4 @@
 import { Model, DataTypes } from "sequelize";
-import { Customer } from "./user_model.js"
 
 const  TABLE_NAME = "favorites";
 
@@ -25,7 +24,7 @@ const FavoriteSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
-    customer_id: {
+    user_id: {
         allowNull: false,
         type: DataTypes.STRING
     },

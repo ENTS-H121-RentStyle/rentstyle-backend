@@ -12,14 +12,14 @@ const addFavorite = async(req, res) => {
         return res.status(400).json({ errors: errors.array() });
     };
 
-    const { customer_id, product_id } = req.body;
+    const { user_id, product_id } = req.body;
 
     try {
         const existingFavorite = await Favorite.findOne({
             where: {
                 [Op.and]: [
                     {
-                        customer_id: customer_id,
+                        user_id: user_id,
                     },
                     {
                         product_id: product_id,

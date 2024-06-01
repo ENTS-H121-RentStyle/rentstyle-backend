@@ -2,7 +2,7 @@ import { body } from "express-validator";
 import { Seller } from "../models/seller_model.js";
 
 const validateAddSeller = [ 
-    body("customer_id")
+    body("user_id")
         .isString()
         .notEmpty()
         .withMessage("ID tidak boleh kosong.")
