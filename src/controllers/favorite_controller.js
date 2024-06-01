@@ -1,5 +1,8 @@
 import { validationResult } from "express-validator";
 import { FavoriteService } from "../services/favorite_service.js";
+import { Favorite } from "../models/favorite_model.js";
+import { Op } from "sequelize";
+
 const service = new FavoriteService()
 
 const addFavorite = async(req, res) => {
@@ -9,7 +12,27 @@ const addFavorite = async(req, res) => {
         return res.status(400).json({ errors: errors.array() });
     };
 
+    const { customer_id, product_id } = req.body;
+
     try {
+        const existingFavorite = await Favorite.findOne({
+            where: {
+                [Op.and]: [
+                    {
+                        customer_id: customer_id,
+                    },
+                    {
+                        product_id: product_id,
+                    },
+                ],
+            },
+        });
+
+        if (existingFavorite) {
+            return res.status(400).json({ message: "Product sudah ada di dalam Favorite" });
+        };
+
+        
         const response = await service.create(req.body);
         res.status(201).json(response);
     } catch(error) {

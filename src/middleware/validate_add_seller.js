@@ -2,15 +2,16 @@ import { body } from "express-validator";
 import { Seller } from "../models/seller_model.js";
 
 const validateAddSeller = [ 
-    body("id")
-    .isString()
-    .withMessage("ID harus berupa String.")
-    .custom(async (value) => {
-        const existingSeller = await Seller.findByPk(value);
-        if (existingSeller) {
-            throw new Error("ID sudah terdaftar.");
-        };
-    }),
+    body("customer_id")
+        .isString()
+        .notEmpty()
+        .withMessage("ID tidak boleh kosong.")
+        .custom(async (value) => {
+            const existingSeller = await Seller.findByPk(value);
+            if (existingSeller) {
+                throw new Error("ID sudah terdaftar.");
+            }
+        }),
 
     body("seller_name")
         .isString()
@@ -18,6 +19,7 @@ const validateAddSeller = [
         .withMessage("Nama tidak boleh kosong."),
     body("email")
         .isEmail()
+        .notEmpty()
         .withMessage("Email tidak valid.")
         .custom(async (value) => {
             const existingSeller = await Seller.findOne({
@@ -37,6 +39,11 @@ const validateAddSeller = [
         .isString()
         .notEmpty()
         .withMessage("Deskripsi tidak boleh kosong."),
+
+    body("city")
+        .isString()
+        .isIn(["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"])
+        .withMessage("Kota harus salah satu dari nilai berikut: Jakarta, Bogor, Depok, Tangerang, Bekasi"),
 
     // body("image")
     //     .isString()
