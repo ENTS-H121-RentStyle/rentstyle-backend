@@ -1,6 +1,5 @@
 import { body } from "express-validator";
-import { Product } from "../models/product_model.js";
-import { User } from "../models/user_model.js";
+import { Product } from "../models/product_model";
 
 const validateAddCart = [
   body("product_id")
@@ -13,16 +12,14 @@ const validateAddCart = [
         throw new Error("Product dengan ID tersebut tidak ditemukan.");
       }
     }),
-  body("user_id")
+  body("size")
     .isString()
     .notEmpty()
-    .withMessage("User ID tidak boleh kosong.")
-    .custom(async (value) => {
-      const existingUser = await User.findByPk(value);
-      if (!existingUser) {
-        throw new Error("User dengan ID tersebut tidak ditemukan.");
-      }
-    }),
+    .isIn(["S", "M", "L", "XL", "XXL", "XXXL"])``
+    .withMessage("Size tidak boleh kosong."),
+  body("stocks")
+    .isInt()
+    .notEmpty.withMessage("Size harus angka, dan tidak boleh kosong"),
 ];
 
 export default validateAddCart;

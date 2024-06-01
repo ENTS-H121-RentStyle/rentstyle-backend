@@ -1,8 +1,8 @@
 import { body } from "express-validator";
-import { Customer } from "../models/customer_model.js";
 import { Op } from "sequelize";
+import { User } from "../models/user_model.js";
 
-const validateEditCustomer = [
+const validateEditUser = [
   body("id").custom((value, { req }) => {
     if (value !== undefined) {
       throw new Error("ID tidak boleh diubah.");
@@ -26,10 +26,11 @@ const validateEditCustomer = [
     .withMessage("Alamat tidak boleh kosong."),
   body("phone")
     .optional()
+    .notEmpty()
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value, { req }) => {
-      const existingCustomer = await Customer.findOne({
+      const existingUser = await User.findOne({
         where: {
           phone: value,
           id: {
@@ -37,20 +38,19 @@ const validateEditCustomer = [
           },
         },
       });
-      if (existingCustomer) {
+      if (existingUser) {
         throw new Error("Nomor telepon sudah terdaftar.");
       }
     }),
   body("birth_date")
     .optional()
     .isDate()
-    .isEmpty()
+    .notEmpty()
     .withMessage("Tanggal lahir harus berupa tanggal"),
   body("gender")
-    .isEmpty()
     .notEmpty()
     .isIn("Pria", "Wanita")
     .withMessage("Gender tidak boleh kosong"),
 ];
 
-export default validateEditCustomer;
+export default validateEditUser;

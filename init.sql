@@ -47,11 +47,11 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
   "gender": "Pria"
 }
 {
+  "id": "{Generate by Backend}",
+  "customer_id": "{ID}",
   "category": "Cosplay",
   "color": "red",
   "size": "L",
-  "count_num_rating": "100",
-  "avg_rating": "4.0"
 }
 
 {

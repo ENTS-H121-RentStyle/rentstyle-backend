@@ -1,25 +1,26 @@
 import { body } from "express-validator";
-import { Customer } from "../models/customer_model.js";
+import { User } from "../models/user_model.js";
 
-const validateAddCustomer = [
+const validateAddUser = [
   body("id")
     .isString()
     .withMessage("ID harus berupa String.")
     .custom(async (value) => {
-      const existingCustomer = await Customer.findByPk(value);
-      if (existingCustomer) {
+      const existingUser = await User.findByPk(value);
+      if (existingUser) {
         throw new Error("ID sudah terdaftar.");
       }
     }),
   body("name").isString().notEmpty().withMessage("Nama tidak boleh kosong."),
   body("email")
+    .notEmpty()
     .isEmail()
     .withMessage("Email tidak valid.")
     .custom(async (value) => {
-      const existingCustomer = await Customer.findOne({
+      const existingUser = await User.findOne({
         where: { email: value },
       });
-      if (existingCustomer) {
+      if (existingUser) {
         throw new Error("Email sudah terdaftar.");
       }
     }),
@@ -31,10 +32,10 @@ const validateAddCustomer = [
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value) => {
-      const existingCustomer = await Customer.findOne({
+      const existingUser = await User.findOne({
         where: { phone: value },
       });
-      if (existingCustomer) {
+      if (existingUser) {
         throw new Error("Nomor telepon sudah terdaftar.");
       }
     }),
@@ -48,4 +49,4 @@ const validateAddCustomer = [
     .withMessage("Gender tidak boleh kosong"),
 ];
 
-export default validateAddCustomer;
+export default validateAddUser;

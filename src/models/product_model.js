@@ -40,10 +40,6 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.STRING
   },
-  size: {
-    allowNull: false,
-    type: DataTypes.STRING
-  },
   desc: {
     allowNull: false,
     type: DataTypes.TEXT

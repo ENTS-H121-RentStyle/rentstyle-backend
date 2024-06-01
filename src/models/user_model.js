@@ -1,24 +1,24 @@
 import { Model, DataTypes } from "sequelize";
 
-const TABLE_NAME = "customers";
+const TABLE_NAME = "users";
 
-class Customer extends Model {
+class User extends Model {
   static config(sequelize) {
     return {
       sequelize,
       tableName: TABLE_NAME,
-      modelName: "Customer",
+      modelName: "User",
       timestamps: false,
     };
   }
 }
 
-const CustomerSchema = {
+const UserSchema = {
   id: {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.STRING,
-    field: "customer_id",
+    field: "user_id",
   },
   name: {
     allowNull: false,
@@ -41,4 +41,4 @@ const CustomerSchema = {
   }
 };
 
-export { Customer, CustomerSchema };
+export { User, UserSchema };

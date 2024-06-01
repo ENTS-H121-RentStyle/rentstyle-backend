@@ -1,55 +1,32 @@
 import { validationResult } from "express-validator";
-import { CartService } from "../services/cart_service.js";
-import { Cart } from "../models/cart_model.js";
 import { Op } from "sequelize";
+import { SizeService } from "../services/size_service.js";
 import { Size } from "../models/size_model.js";
-const service = new CartService();
+const service = new SizeService();
 
-const addCart = async (req, res) => {
+const addSize = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { user_id, product_id, size_id } = req.body;
+  const { product_id, size } = req.body;
   try {
-    const findSize = await Size.findOne({
+    const duplicateSize = await Size.findOne({
       where: {
         [Op.and]: [
           {
             product_id: product_id,
           },
           {
-            size_id: size_id
-          }
+            size: size,
+          },
         ],
       },
     });
 
-    if (!findSize) {
-      return res.status(400).json({ message: "Masukan Size yang benar" });
-    }
-
-    const existingCart = await Cart.findOne({
-      where: {
-        [Op.and]: [
-          {
-            user_id: user_id,
-          },
-          {
-            product_id: product_id,
-          },
-          {
-            size_id: size_id
-          }
-        ],
-      },
-    });
-
-    if (existingCart) {
-      return res
-        .status(400)
-        .json({ message: "Product sudah ada di dalam Cart" });
+    if (duplicateSize) {
+      return res.status(400).json({ message: "Size tidak boleh duplikat." });
     }
 
     const response = await service.create(req.body);
@@ -59,9 +36,19 @@ const addCart = async (req, res) => {
   }
 };
 
-const findUserCart = async (req, res) => {
+const getOneSize = async (req, res) => {
   try {
-    const { id } = req.params; //user_id
+    const { id } = req.params
+    const response = await service.readOne(id)
+    res.status(200).json(response)
+  } catch (error) {
+    res.status(500).send({ message: error.message })
+  }
+}
+
+const findProductSize = async (req, res) => {
+  try {
+    const { id } = req.params; //product_id
     const response = await service.readFilter(id);
 
     const sanitizedResponse = response.map((item) => {
@@ -74,9 +61,9 @@ const findUserCart = async (req, res) => {
   }
 };
 
-const editCart = async (req, res) => {
+const editSize = async (req, res) => {
   try {
-    const { id } = req.params; //cart_id
+    const { id } = req.params; //size_id
     const body = req.body;
     const response = await service.update(id, body);
     res.status(200).json(response);
@@ -85,9 +72,9 @@ const editCart = async (req, res) => {
   }
 };
 
-const dropCart = async (req, res) => {
+const dropSize = async (req, res) => {
   try {
-    const { id } = req.params; //cart_id
+    const { id } = req.params; //size_id
     const response = await service.delete(id);
     res.status(200).json(response);
   } catch (error) {
@@ -95,4 +82,4 @@ const dropCart = async (req, res) => {
   }
 };
 
-export default { addCart, findUserCart, editCart, dropCart };
+export default { addSize, findProductSize, getOneSize, dropSize };
