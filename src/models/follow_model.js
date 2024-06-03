@@ -1,37 +1,33 @@
 import { Model, DataTypes } from "sequelize";
 
-const TABLE_NAME = "sizes";
+const TABLE_NAME = "follows";
 
-class Size extends Model {
+class Follow extends Model {
   static config(sequelize) {
     return {
       sequelize,
       tableName: TABLE_NAME,
-      modelName: "size",
+      modelName: "Follow",
       timestamps: false,
     };
   }
 }
 
-const SizeSchema = {
+const FollowSchema = {
   id: {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.STRING,
-    field: "size_id",
+    field: "follow_id",
   },
-  size: {
+  follower_id: {
     allowNull: false,
     type: DataTypes.STRING,
   },
-  stocks: {
+  followed_id: {
     allowNull: false,
-    type: DataTypes.INTEGER
-  },
-  product_id: {
-    allowNull: false,
-    type: DataTypes.STRING,
-  },
+    type: DataTypes.STRING
+  }
 };
 
-export { Size, SizeSchema };
+export { Follow, FollowSchema };

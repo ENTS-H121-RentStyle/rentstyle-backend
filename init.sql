@@ -11,16 +11,6 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
     "size": "L",
     "desc": "Default Coating",
     "price": 100000
-  },
-  {
-    "product_name": "Bianca Veritas",
-    "seller_id": {Generate by Backend}
-    "category": "Cosplay",
-    "image": "url",
-    "color": "Hitam",
-    "size": "L",
-    "desc": "Default Coating",
-    "price": 100000
   }
 }
 
@@ -31,7 +21,6 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
   "category": "Cosplay",
   "image": "url",
   "color": "Hitam",
-  "size": "L",
   "desc": "Default Coating",
   "rent_price": 100000,
   "product_price": 1000000
@@ -44,8 +33,10 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
   "birth_date": "2002-10-29"
   "address": "Semarang 43, Bandung",
   "phone": "089662599445",
-  "gender": "Pria"
+  "gender": "Pria",
+  "image": "url"
 }
+
 {
   "id": "{Generate by Backend}",
   "customer_id": "{ID}",
@@ -81,3 +72,28 @@ rent_price=product.rent_price*rent_duration
 total_payment=service_fee+deposit_money+rent_price
 persentase diambil dari tabel constanta
 deskripsi ini buat validasi
+
+{
+  "id": "{Generate by Backend}",
+  "size": "L/40",
+  "stocks": 2,
+  "product_id": "{ID}"
+}
+
+{
+  "id": "{Generate by Backend}",
+  "product_id": "{ID}",
+  "size_id": "{ID}",
+  "user_id": "{ID}",
+  "Product": {
+    "product_name": "Bianca Veritas",
+    "image": "url",
+    "rent_price": 10000
+  }
+}
+
+{
+  "id": "{Generate by Backend}",
+  "key": "admin_fee",
+  "value": 0.5,
+}

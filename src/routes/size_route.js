@@ -7,7 +7,7 @@ const router = Router();
 router
   .post("/", tokenAuth, Controller.addSize)
   .get("/:id", Controller.getOneSize)
-  .get("/:id",Controller.findProductSize)
+  .get("/filter",Controller.findProductSize)
   .delete("/:id", tokenAuth, Controller.dropSize);
 
 export default router;
