@@ -32,7 +32,8 @@ const setupModels = (sequelize) => {
   User.hasOne(Preference, { foreignKey: "pref_id" });
   Preference.belongsTo(User, { foreignKey: "user_id" });
 
-  Size.belongsTo(Product, { foreignKey: "product_id" });
+
+  // Size.belongsTo(Product, { foreignKey: "product_id" });
 };
 
 export default setupModels;

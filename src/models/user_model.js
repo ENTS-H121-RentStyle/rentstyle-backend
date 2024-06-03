@@ -38,6 +38,9 @@ const UserSchema = {
   },
   gender: {
     type: DataTypes.STRING
+  },
+  image: {
+    type: DataTypes.STRING
   }
 };
 
