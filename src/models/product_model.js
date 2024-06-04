@@ -52,6 +52,10 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.FLOAT
   },
+  collection_id: {
+    allowNull: false,
+    type: DataTypes.STRING
+  },
 }
 
 export { Product, ProductSchema }

@@ -54,7 +54,6 @@ const validateEditUser = [
     .withMessage("Gender tidak boleh kosong"),
 
   body("image")
-    .optional()
     .custom((value, { req }) => {
       if (!req.file) {
         return true;

@@ -7,6 +7,8 @@ import sellerRouter from "./seller_route.js";
 import FavoriteRouter from "./favorite_route.js";
 import ConstantaRouter from "./constanta_route.js";
 import SizeRouter from "./size_route.js";
+import CollectionRouter from "./collection_route.js";
+
 
 function routerApi(app) {
   const router = Router();
@@ -19,6 +21,7 @@ function routerApi(app) {
   router.use("/favorite", FavoriteRouter);
   router.use("/const", ConstantaRouter);
   router.use("/size", SizeRouter);
+  router.use("/collection", CollectionRouter);
 }
 
 export default routerApi;

@@ -7,7 +7,9 @@ const validateAddSeller = [
         .notEmpty()
         .withMessage("ID tidak boleh kosong.")
         .custom(async (value) => {
-            const existingSeller = await Seller.findByPk(value);
+            const existingSeller = await Seller.findOne({
+                where: { user_id: value },
+            });
             if (existingSeller) {
                 throw new Error("ID sudah terdaftar.");
             }
@@ -17,18 +19,6 @@ const validateAddSeller = [
         .isString()
         .notEmpty()
         .withMessage("Nama tidak boleh kosong."),
-    body("email")
-        .isEmail()
-        .notEmpty()
-        .withMessage("Email tidak valid.")
-        .custom(async (value) => {
-            const existingSeller = await Seller.findOne({
-                where: { email: value },
-            });
-            if (existingSeller) {
-                throw new Error("Email sudah terdaftar.");
-            };
-        }),
 
     body("address")
         .isString()

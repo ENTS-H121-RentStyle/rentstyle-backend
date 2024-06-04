@@ -8,7 +8,7 @@ import { uploadMiddleware } from "../services/image_service.js";
 const router = Router();
 
 router
-  .post("/",  uploadMiddleware, validateAddSeller, Controller.addSeller)
+  .post("/", tokenAuth, uploadMiddleware, validateAddSeller, Controller.addSeller)
   .get("/:id", Controller.getDetailSeller)
   .put("/:id", tokenAuth, uploadMiddleware, validateEditSeller, Controller.editSeller)
   .delete("/:id",tokenAuth, Controller.dropSeller);

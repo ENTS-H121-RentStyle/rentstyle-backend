@@ -24,9 +24,9 @@ const SellerSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
-    email: {
-        type: DataTypes.STRING
-    },
+    // email: {
+    //     type: DataTypes.STRING
+    // },
     address: {
         type: DataTypes.STRING
     },
@@ -37,6 +37,9 @@ const SellerSchema = {
         type:DataTypes.STRING
     },
     city: {
+        type: DataTypes.STRING
+    },
+    user_id: {
         type: DataTypes.STRING
     }
 };

@@ -1,7 +1,7 @@
 import { SellerService } from "../services/seller_service.js";
 import { validationResult } from "express-validator";
 import { Seller } from "../models/seller_model.js"; 
-import { Op } from "sequelize";
+// import { Op } from "sequelize";
 import { User } from "../models/user_model.js";
 import { uploadFileToGCS, deleteFileFromGCS } from "../services/image_service.js";
 
@@ -14,8 +14,7 @@ const addSeller = async(req, res) => {
         return res.status(400).json({ errors: errors.array() });
     };
 
-    const { user_id, email } = req.body;
-
+    const { user_id } = req.body;
 
     try {
 
@@ -31,22 +30,13 @@ const addSeller = async(req, res) => {
 
         const existingUser = await User.findOne({
             where: {
-                [Op.and]: [
-                    { 
-                        user_id: user_id,
-                    },
-                    {
-                        email: email, 
-                    },
-                ],
+              user_id: user_id,
             },
         });
 
         if (!existingUser) {
             return res.status(400).json({ message: "User tidak ditemukan." });
         };  
-
-    
 
         const response = await service.create(sellerData);
         res.status(201).json(response);

@@ -49,6 +49,28 @@ const validateEditProduct = [
         .optional()
         .isNumeric()
         .withMessage("Harga produk harus berupa angka."),
+
+    body("image")
+    .custom((value, { req }) => {
+        if (!req.file) {
+        return true;
+        }
+        const allowedExtensions = ["jpg", "jpeg", "png"];
+        const maxFileSize = 1 * 1024 * 1024; // 1MB
+
+        const fileExtension = req.file.originalname.split(".").pop();
+        const fileSize = req.file.size;
+
+        if (!allowedExtensions.includes(fileExtension)) {
+        throw new Error("File harus berupa gambar (jpg, jpeg, atau png).");
+        }
+
+        if (fileSize > maxFileSize) {
+        throw new Error("Ukuran file tidak boleh lebih dari 1MB.");
+        }
+
+        return true;
+    }),
 ];
 
 export default validateEditProduct;
