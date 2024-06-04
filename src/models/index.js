@@ -6,6 +6,7 @@ import { Seller, SellerSchema } from "./seller_model.js";
 import { Favorite, FavoriteSchema } from "./favorite_model.js";
 import { Constanta, ConstSchema } from "./constanta_model.js";
 import { Size, SizeSchema } from "./size_model.js";
+import { Collection, CollectionSchema } from "./collection_model.js";
 import { Follow, FollowSchema } from "./follow_model.js";
 import { Order, OrderSchema } from "./order_model.js";
 
@@ -18,6 +19,7 @@ const setupModels = (sequelize) => {
   Seller.init(SellerSchema, Seller.config(sequelize));
   Favorite.init(FavoriteSchema, Favorite.config(sequelize));
   Constanta.init(ConstSchema, Constanta.config(sequelize));
+  Collection.init(CollectionSchema, Collection.config(sequelize));
   Follow.init(FollowSchema, Follow.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
 
@@ -34,6 +36,16 @@ const setupModels = (sequelize) => {
   Favorite.belongsTo(User, { foreignKey: "user_id" });
 
   Preference.belongsTo(User, { foreignKey: "user_id" });
+
+  Collection.hasMany(Product, { foreignKey: "collection_id" });
+  Product.belongsTo(Collection, { foreignKey: "collection_id" });
+
+  Seller.hasMany(Collection, { foreignKey: "seller_id" });
+  Collection.belongsTo(Seller, { foreignKey: "seller_id" });
+
+  User.hasOne(Seller, { foreignKey: "user_id" });
+  Seller.belongsTo(User, { foreignKey: "user_id" });
+
 
   Size.belongsTo(Product, { foreignKey: "product_id" });
 };
