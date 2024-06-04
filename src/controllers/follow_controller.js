@@ -12,7 +12,7 @@ const addFollow = async (req, res) => {
 
   const { follower_id, followed_id } = req.body;
   try {
-    const duplicateFollow = await Follow.readOne(follower_id, followed_id)
+    const duplicateFollow = await Follow.readOne(follower_id, followed_id);
 
     if (duplicateFollow) {
       return res.status(400).json({ message: "Pengguna sudah anda ikuti." });
@@ -27,36 +27,37 @@ const addFollow = async (req, res) => {
 
 const getOneFollow = async (req, res) => {
   try {
-    const { follower_id, followed_id } = req.body;
+    const { followerId, followedId } = req.query;
 
-    const response = await service.readOne(follower_id, followed_id)
-    res.status(200).json(response)
+    const response = await service.readOne(followerId, followedId);
+    res.status(200).json(response);
   } catch (error) {
-    res.status(500).send({ message: error.message })
+    res.status(500).send({ message: error.message });
   }
-}
+};
 
-const filterFollower = async (req, res) => {
-    try {
-      const { userId } = req.params; //Followed_id
-      const response = await service.readFollower(userId);
-  
-      res.status(200).json(response);
-    } catch (error) {
-      res.status(500).send({ message: error.message });
-    }
-  };
+const filterFollow = async (req, res) => {
+  const { followerId, followedId } = req.query;
 
-const filterFollowed = async (req, res) => {
-    try {
-      const { userId } = req.params; //Followed_id
-      const response = await service.readFollowed(userId);
-  
-      res.status(200).json(response);
-    } catch (error) {
-      res.status(500).send({ message: error.message });
+  if (followerId && followedId) {
+    return res.status(400).json({ message: "Salah input follow" });
+  }
+
+  try {
+    let response="";
+    if (followerId) {
+      response = await service.readFollower(followerId);
     }
-  };
+
+    if (followedId) {
+      response = await service.readFollowed(followedId);
+    }
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
 
 const dropFollow = async (req, res) => {
   try {
@@ -68,4 +69,4 @@ const dropFollow = async (req, res) => {
   }
 };
 
-export default { addFollow, getOneFollow, filterFollowed, filterFollower, dropFollow };
+export default { addFollow, getOneFollow, filterFollow, dropFollow };

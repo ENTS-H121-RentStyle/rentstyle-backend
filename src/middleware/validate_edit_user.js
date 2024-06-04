@@ -3,13 +3,13 @@ import { Op } from "sequelize";
 import { User } from "../models/user_model.js";
 
 const validateEditUser = [
-  body("id").custom((value, { req }) => {
+  body("id").custom((value) => {
     if (value !== undefined) {
       throw new Error("ID tidak boleh diubah.");
     }
     return true;
   }),
-  body("email").custom((value, { req }) => {
+  body("email").custom((value) => {
     if (value !== undefined) {
       throw new Error("Email tidak boleh diubah.");
     }

@@ -11,6 +11,18 @@ class OrderService {
     return res;
   }
 
+  async readOne(orderId) {
+    const res = await Order.findByPk(orderId);
+    return res;
+  }
+
+  async readFilter(userId) {
+    const res = await Order.findAll({
+      where: { user_id: userId },
+    });
+    return res;
+  }
+
   async delete(id) {
     const model = await Order.findByPk(id);
     await model.destroy();

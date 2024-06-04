@@ -33,7 +33,6 @@ const setupModels = (sequelize) => {
   User.hasMany(Favorite, { foreignKey: "user_id" });
   Favorite.belongsTo(User, { foreignKey: "user_id" });
 
-  User.hasOne(Preference, { foreignKey: "pref_id" });
   Preference.belongsTo(User, { foreignKey: "user_id" });
 
   Size.belongsTo(Product, { foreignKey: "product_id" });
