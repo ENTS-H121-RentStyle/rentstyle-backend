@@ -46,7 +46,6 @@ const setupModels = (sequelize) => {
   User.hasOne(Seller, { foreignKey: "user_id" });
   Seller.belongsTo(User, { foreignKey: "user_id" });
 
-
   Size.belongsTo(Product, { foreignKey: "product_id" });
 };
 
