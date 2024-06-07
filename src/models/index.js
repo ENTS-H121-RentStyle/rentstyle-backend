@@ -9,6 +9,7 @@ import { Size, SizeSchema } from "./size_model.js";
 import { Collection, CollectionSchema } from "./collection_model.js";
 import { Follow, FollowSchema } from "./follow_model.js";
 import { Order, OrderSchema } from "./order_model.js";
+import { Review, ReviewSchema } from "./review_model.js";
 
 const setupModels = (sequelize) => {
   Product.init(ProductSchema, Product.config(sequelize));
@@ -22,6 +23,8 @@ const setupModels = (sequelize) => {
   Collection.init(CollectionSchema, Collection.config(sequelize));
   Follow.init(FollowSchema, Follow.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
+  Review.init(ReviewSchema, Review.config(sequelize));
+
 
   Product.belongsTo(Seller, { foreignKey: "seller_id" });
   Seller.hasMany(Product, { foreignKey: "seller_id" });
@@ -46,6 +49,14 @@ const setupModels = (sequelize) => {
   User.hasOne(Seller, { foreignKey: "user_id" });
   Seller.belongsTo(User, { foreignKey: "user_id" });
 
+  Product.hasMany(Review, { foreignKey: "product_id" });
+  Review.belongsTo(Product, { foreignKey: "product_id" });
+
+  User.hasOne(Review, { foreignKey: "user_id" });
+  Review.belongsTo(User, { foreignKey: "user_id" });
+
+  Order.hasOne(Review, { foreignKey: "order_id" });
+  Review.belongsTo(Order, { foreignKey: "order_id" });
 
   Size.belongsTo(Product, { foreignKey: "product_id" });
 };
