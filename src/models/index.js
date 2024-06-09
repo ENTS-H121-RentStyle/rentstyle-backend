@@ -4,11 +4,11 @@ import { User, UserSchema } from "./user_model.js";
 import { Preference, PreferenceSchema } from "./preference_model.js";
 import { Seller, SellerSchema } from "./seller_model.js";
 import { Favorite, FavoriteSchema } from "./favorite_model.js";
-import { Constanta, ConstSchema } from "./constanta_model.js";
 import { Size, SizeSchema } from "./size_model.js";
 import { Collection, CollectionSchema } from "./collection_model.js";
 import { Follow, FollowSchema } from "./follow_model.js";
 import { Order, OrderSchema } from "./order_model.js";
+import { History, HistorySchema } from "./history_model.js";
 
 const setupModels = (sequelize) => {
   Product.init(ProductSchema, Product.config(sequelize));
@@ -18,10 +18,10 @@ const setupModels = (sequelize) => {
   Preference.init(PreferenceSchema, Preference.config(sequelize));
   Seller.init(SellerSchema, Seller.config(sequelize));
   Favorite.init(FavoriteSchema, Favorite.config(sequelize));
-  Constanta.init(ConstSchema, Constanta.config(sequelize));
   Collection.init(CollectionSchema, Collection.config(sequelize));
   Follow.init(FollowSchema, Follow.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
+  History.init(HistorySchema, History.config(sequelize))
 
   Product.belongsTo(Seller, { foreignKey: "seller_id" });
   Seller.hasMany(Product, { foreignKey: "seller_id" });
@@ -47,6 +47,8 @@ const setupModels = (sequelize) => {
   Seller.belongsTo(User, { foreignKey: "user_id" });
 
   Size.belongsTo(Product, { foreignKey: "product_id" });
+
+  History.belongsTo(Order, {foreignKey: "order_id"})
 };
 
 export default setupModels;
