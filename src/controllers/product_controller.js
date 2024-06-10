@@ -33,13 +33,19 @@ const addProduct = async (req, res) => {
 const getSearch = async (req, res) => {
   try {
     const { q } = req.query;
-    const {category} = req.query
+    const { category } = req.query;
     const response = await service.readSearch(q, category);
-    res.status(200).json(response);
+
+    if (!response || (Array.isArray(response) && response.length === 0)) {
+      res.status(404).json({ message: "Product not found" });
+    } else {
+      res.status(200).json(response);
+    }
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 };
+
 
 const getAllProduct = async (req, res) => {
   try {

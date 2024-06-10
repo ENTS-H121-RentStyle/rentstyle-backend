@@ -41,7 +41,6 @@ const ReviewSchema = {
         type: DataTypes.TEXT
     },
     image: {
-        allowNull: false,
         type: DataTypes.STRING
     }
 }
