@@ -33,7 +33,8 @@ const addProduct = async (req, res) => {
 const getSearch = async (req, res) => {
   try {
     const { q } = req.query;
-    const response = await service.readSearch(q);
+    const {category} = req.query
+    const response = await service.readSearch(q, category);
     res.status(200).json(response);
   } catch (error) {
     res.status(500).send({ message: error.message });
