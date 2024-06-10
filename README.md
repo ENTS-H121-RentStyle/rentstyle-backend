@@ -3,7 +3,7 @@
 
 ## Tools & Tech Stack
 - [*Node.js*](https://nodejs.org/en)
-  Node. js is an open-source, cross-platform JavaScript runtime environment and library for running web applications outside the client's browser.
+   Node. js is an open-source, cross-platform JavaScript runtime environment and library for running web applications outside the client's browser.   
 - [Express.js](https://expressjs.com/) 
   Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 - [MySQL]
