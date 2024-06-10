@@ -2,6 +2,7 @@ import "../configs/database.js";
 import crypto from "crypto";
 import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
+import { Seller } from "../models/seller_model.js";
 
 class ProductService {
   constructor() {}
@@ -35,7 +36,7 @@ class ProductService {
             category: {
               [Op.like]: `%${keyword}%`,
             },
-          }
+          },
         ],
       },
     });
@@ -59,7 +60,13 @@ class ProductService {
   }
 
   async readOne(productId) {
-    const res = await Product.findByPk(productId);
+    const res = await Product.findOne({
+      where: { id: productId },
+      include: {
+        model: Seller,
+        attributes: ["seller_name", "city"],
+      },
+    });
     return res;
   }
 

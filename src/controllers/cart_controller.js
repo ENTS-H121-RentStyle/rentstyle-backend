@@ -2,7 +2,6 @@ import { validationResult } from "express-validator";
 import { CartService } from "../services/cart_service.js";
 import { Cart } from "../models/cart_model.js";
 import { Op } from "sequelize";
-import { Size } from "../models/size_model.js";
 const service = new CartService();
 
 const addCart = async (req, res) => {
@@ -11,25 +10,8 @@ const addCart = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { user_id, product_id, size_id } = req.body;
+  const { user_id, product_id } = req.body;
   try {
-    const findSize = await Size.findOne({
-      where: {
-        [Op.and]: [
-          {
-            product_id: product_id,
-          },
-          {
-            size_id: size_id
-          }
-        ],
-      },
-    });
-
-    if (!findSize) {
-      return res.status(400).json({ message: "Masukan Size yang benar" });
-    }
-
     const existingCart = await Cart.findOne({
       where: {
         [Op.and]: [
@@ -39,9 +21,6 @@ const addCart = async (req, res) => {
           {
             product_id: product_id,
           },
-          {
-            size_id: size_id
-          }
         ],
       },
     });

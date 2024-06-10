@@ -23,6 +23,7 @@ const validateAddCart = [
         throw new Error("User dengan ID tersebut tidak ditemukan.");
       }
     }),
+  body('duration').isInt().notEmpty().withMessage("Durasi tidak boleh nol.")
 ];
 
 export default validateAddCart;

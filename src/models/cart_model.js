@@ -24,14 +24,14 @@ const CartSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
-  size_id: {
-    allowNull: false,
-    type: DataTypes.STRING
-  },
   user_id: {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  duration: {
+    allowNull: false,
+    type: DataTypes.INTEGER
+  }
 };
 
 export { Cart, CartSchema };

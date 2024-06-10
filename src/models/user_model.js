@@ -25,6 +25,7 @@ const UserSchema = {
     type: DataTypes.STRING,
   },
   email: {
+    allowNull: false,
     type: DataTypes.STRING,
   },
   birth_date: {
