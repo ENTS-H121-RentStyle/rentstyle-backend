@@ -21,10 +21,12 @@
 - [*Github*](https://github.com/) : GitHub is a developer platform that allows developers to create, store, manage and share their code  
 - [*Ubuntu WSL*](https://ubuntu.com/desktop/wsl) : Windows Subsystem for Linux is a feature of Microsoft Windows that allows developers to run a Linux environment without the need for a separate virtual machine or dual booting.
 
-
-
-Jalankan dengan perintah ini!
+## Installation & Docs
+Run the command below! 
 ```
 $ npm install
 $ npm run dev
 ```
+For how to use and instructions for using the API can be accessed at the following [link](https://docs.google.com/spreadsheets/d/1UNO_bQFH_D8A13frgvJbfVtU_1ssgnizov37hArZcMA/edit#gid=682881545)
+
+##
