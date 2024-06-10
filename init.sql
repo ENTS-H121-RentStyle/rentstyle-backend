@@ -97,3 +97,74 @@ deskripsi ini buat validasi
   "key": "admin_fee",
   "value": 0.5,
 }
+
+{
+  "id": "{Generate by Backend :) }",
+  "product_name": "Bianca Veritas",
+  "seller_id": "1",
+  "category": "Cosplay",
+  "image": "url",
+  "color": "Hitam",
+  "desc": "Default Coating",
+  "rent_price": 100000,
+  "product_price": 1000000,
+  "seller": {
+    "seller_name"
+    "city": "Bandung"
+  }
+  "size": {},
+  "review": {} limit 2
+}
+
+{
+  "id": "{Generate by Backend}",
+  "duration": 3,
+  "product_id": "{ID}",
+  "user_id": "{ID}"
+}
+
+{
+  "id": "{Generate by Backend}"
+  "product_id": "id",
+  "user_id": "id",
+  "order_date": "29-5-2024",
+  "return_date": "1-6-2024",
+  "rent_duration": integer,
+  "service_fee": float,
+  "deposit_money": float,
+  "rent_price": float,
+  "total_payment": float,
+  "order_status": "Belum dibayar",
+  "user": {
+    "adress": "adress"
+  }
+}
+
+  "id": "{Generate by Backend}"
+  "product_id": "id",
+  "user_id": "id",
+
+  {
+  "id": "{Generate by Backend}"
+  "product_id": "id",
+  "user_id": "id",
+  "order_status": "Belum dibayar"
+}
+
+[
+    {
+        "id": "{UUID}",
+        "order_id": "{UUID}",
+        "user_id": "{UUID}",
+        "rating": 4,
+        "review": "ih nutellanya dikit gak full! nanti rasanya kering",
+        "image": "{image_url}",
+        "Product": {
+            "product_name": "Bianca",
+            "image": "{image_url}"
+        }
+        "User": {
+          "user_name": "blbla"
+        }
+    }
+]
