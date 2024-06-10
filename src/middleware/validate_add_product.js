@@ -1,5 +1,6 @@
 import { body } from "express-validator";
-import { Product } from "../models/product_model.js";
+// import { Product } from "../models/product_model.js";
+import { Seller } from "../models/seller_model.js";
 
 const validateAddProduct = [
   body("product_name")
@@ -10,7 +11,7 @@ const validateAddProduct = [
     .notEmpty()
     .withMessage("ID penjual tidak boleh kosong.")
     .custom(async (value) => {
-      const existingSeller = await Product.findOne({
+      const existingSeller = await Seller.findOne({
         where: { seller_id: value },
       });
       if (!existingSeller) {
