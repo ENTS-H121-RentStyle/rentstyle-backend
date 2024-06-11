@@ -37,7 +37,7 @@ const validateAddOrder = [
         attributes: ["rent_price"],
       });
       const serviceFee = existingProduct.rent_price * 0.1;
-      if (Math.abs(value - serviceFee) > Number.EPSILON) {
+      if (Math.abs(value - serviceFee) > Number.EPSILONcr) {
         throw new Error("Service Fee tidak sah.");
       }
     }),
