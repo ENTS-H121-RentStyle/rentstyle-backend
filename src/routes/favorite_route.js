@@ -7,7 +7,7 @@ import validateAddFavorite from "../middleware/validate_add_favorite.js";
 const router = Router();
 
 router
-    .post("/", tokenAuth, validateAddFavorite, Controller.addFavorite)
+    .post("/", validateAddFavorite, Controller.addFavorite)
     .get("/search", Controller.getSearchFavorite)
     .get("/:id", Controller.findUserFavorite)
     .delete("/:id", Controller.dropFavorite)

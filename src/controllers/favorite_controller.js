@@ -56,8 +56,12 @@ const findUserFavorite = async(req, res) => {
         const { id } = req.params
         const response = await service.readFilter(id);
 
+        if (response.length === 0) {
+            return res.status(404).json({ message: "Favorite user tidak ditemukan" });
+        }
+
         const sanitizedResponse = response.map(item => {
-            const { product_id, ...rest } = item.toJSON();
+            const { product_id, user_id, ...rest } = item.toJSON();
             return rest;
         });
 

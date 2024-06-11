@@ -13,7 +13,12 @@ const addReview = async (req, res) => {
     
     try {
         const { order_id, product_id } = req.body;
-        const existingReview = await service.findReviewByOrderIdAndProductId(order_id, product_id);
+        const existingReview = await Review.findOne({
+            where: {
+                order_id: order_id,
+                product_id: product_id,
+            },
+        });
         if (existingReview) {
             return res.status(400).json({ message: "User sudah melakukan review pada order ini" });
         }
@@ -39,6 +44,10 @@ const getReviewByProductId = async (req, res) => {
     try {
         const { id } = req.params;
         const response = await service.readReviewByProductId(id);
+
+        if (response.length === 0) {
+            return res.status(404).json({ message: "Review Product tidak ditemukan" });
+        }
     
         const sanitizedResponse = response.map((item) => {
             const { product_id, user_id, ...rest } = item.toJSON();
