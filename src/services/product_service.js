@@ -4,6 +4,7 @@ import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
 import { Seller } from "../models/seller_model.js";
 import { Review } from "../models/review_model.js";
+import { Sequelize, literal } from "sequelize";
 
 class ProductService {
   constructor() {}
@@ -15,38 +16,71 @@ class ProductService {
   }
 
   async readAll() {
-    const res = await Product.findAll();
+    const res = await Product.findAll({
+      attributes: [
+        "id",
+        "product_name",
+        "category",
+        "color",
+        "size",
+        "rent_price",
+        [Sequelize.fn('COUNT', Sequelize.col('Reviews.review_id')), 'count_num_rating'], // Adjusted column name here
+        [Sequelize.fn('AVG', Sequelize.col('Reviews.rating')), 'avg_rating'], // Adjusted column name here
+      ],
+      include: [{
+        model: Review,
+        attributes: []
+      }],
+      group: ['Product.product_id'] // Group by product id
+    });
+
     return res;
   }
 
   async readSearch(keyword, categoryKey) {
+    let whereCondition = {
+      [Op.or]: [
+        {
+          [Op.or]: [
+            {
+              product_name: {
+                [Op.like]: `%${keyword}%`,
+              },
+            },
+            {
+              desc: {
+                [Op.like]: `%${keyword}%`,
+              },
+            },
+            {
+              category: {
+                [Op.like]: `%${keyword}%`,
+              },
+            },
+          ],
+        },
+      ],
+    };
+  
+    // Check if categoryKey is provided and is valid
+    if (categoryKey) {
+      // Check if categoryKey is valid by querying the database
+      const validCategory = await Product.findOne({
+        where: { category: categoryKey }
+      });
+  
+      if (validCategory) {
+        whereCondition[Op.or].push({
+          category: categoryKey,
+        });
+      } else {
+        // If categoryKey is not valid, return false
+        return false;
+      }
+    }
+  
     const res = await Product.findAll({
-      where: {
-        [Op.and]: [
-          {
-            [Op.or]: [
-              {
-                product_name: {
-                  [Op.like]: `%${keyword}%`,
-                },
-              },
-              {
-                desc: {
-                  [Op.like]: `%${keyword}%`,
-                },
-              },
-              {
-                category: {
-                  [Op.like]: `%${keyword}%`,
-                },
-              },
-            ],
-          },
-          {
-            category: categoryKey,
-          },
-        ],
-      },
+      where: whereCondition,
     });
     return res;
   }
@@ -70,14 +104,17 @@ class ProductService {
   async readOne(productId) {
     const res = await Product.findOne({
       where: { id: productId },
-      include: {
-        model: Seller,
-        attributes: ["seller_name", "city"],
-      },
-      include: {
-        model: Review,
-        limit: 2,
-      },
+      include: [
+        {
+          model: Seller,
+          attributes: ["seller_name", "city"],
+        },
+        {
+          model: Review,
+          where: { product_id: productId },
+          limit: 2,
+        },
+      ],
     });
     return res;
   }
