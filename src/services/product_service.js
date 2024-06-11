@@ -2,6 +2,8 @@ import "../configs/database.js";
 import crypto from "crypto";
 import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
+import { Seller } from "../models/seller_model.js";
+import { Review } from "../models/review_model.js";
 
 class ProductService {
   constructor() {}
@@ -17,25 +19,32 @@ class ProductService {
     return res;
   }
 
-  async readSearch(keyword) {
+  async readSearch(keyword, categoryKey) {
     const res = await Product.findAll({
       where: {
-        [Op.or]: [
+        [Op.and]: [
           {
-            product_name: {
-              [Op.like]: `%${keyword}%`,
-            },
+            [Op.or]: [
+              {
+                product_name: {
+                  [Op.like]: `%${keyword}%`,
+                },
+              },
+              {
+                desc: {
+                  [Op.like]: `%${keyword}%`,
+                },
+              },
+              {
+                category: {
+                  [Op.like]: `%${keyword}%`,
+                },
+              },
+            ],
           },
           {
-            desc: {
-              [Op.like]: `%${keyword}%`,
-            },
+            category: categoryKey,
           },
-          {
-            category: {
-              [Op.like]: `%${keyword}%`,
-            },
-          }
         ],
       },
     });
@@ -59,7 +68,17 @@ class ProductService {
   }
 
   async readOne(productId) {
-    const res = await Product.findByPk(productId);
+    const res = await Product.findOne({
+      where: { id: productId },
+      include: {
+        model: Seller,
+        attributes: ["seller_name", "city"],
+      },
+      include: {
+        model: Review,
+        limit: 2,
+      },
+    });
     return res;
   }
 

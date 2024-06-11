@@ -15,7 +15,7 @@ const validateAddCart = [
   body("size")
     .isString()
     .notEmpty()
-    .isIn(["S", "M", "L", "XL", "XXL", "XXXL"])``
+    .isIn(["S", "M", "L", "XL", "XXL", "XXXL"])
     .withMessage("Size tidak boleh kosong."),
   body("stocks")
     .isInt()

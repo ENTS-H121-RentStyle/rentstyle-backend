@@ -2,7 +2,7 @@ import { body } from "express-validator";
 import { User } from "../models/user_model.js";
 import { Product } from "../models/product_model.js";
 import { Op } from "sequelize";
-const { productId } = req.body;
+import req from "express";
 
 const validateAddOrder = [
   body("product_id")
@@ -33,6 +33,8 @@ const validateAddOrder = [
     .notEmpty()
     .isFloat({ min: 0 })
     .custom(async (value) => {
+      const { productId } = req.body;
+
       const product = Product.findOne({
         where: { id: productId },
         attributes: ["rent_price"],
