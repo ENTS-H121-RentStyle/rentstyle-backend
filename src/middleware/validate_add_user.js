@@ -36,7 +36,7 @@ const validateAddUser = [
         throw new Error("Nomor telepon sudah terdaftar.");
       }
     }),
-  body("birth_date").isDate().withMessage("Tanggal lahir harus berupa tanggal"),
+  body("birth_date").isDate().isISO8601().withMessage("Tanggal lahir harus berupa tanggal"),
   body("gender")
     .isIn("Pria", "Wanita")
     .withMessage("Gender tidak boleh kosong"),

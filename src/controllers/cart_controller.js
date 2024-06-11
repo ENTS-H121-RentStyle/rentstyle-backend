@@ -56,8 +56,8 @@ const findUserCart = async (req, res) => {
 const editCart = async (req, res) => {
   try {
     const { id } = req.params; //cart_id
-    const body = req.body;
-    const response = await service.update(id, body);
+    const { duration } = req.body;
+    const response = await service.update(id, { duration });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).send({ message: error.message });

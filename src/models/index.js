@@ -57,6 +57,7 @@ const setupModels = (sequelize) => {
 
   Order.hasOne(Review, { foreignKey: "order_id" });
   Review.belongsTo(Order, { foreignKey: "order_id" });
+  Order.belongsTo(User, { foreignKey: "user_id" });
   // Size.belongsTo(Product, { foreignKey: "product_id" });
 
   // History.belongsTo(Order, {foreignKey: "order_id"})

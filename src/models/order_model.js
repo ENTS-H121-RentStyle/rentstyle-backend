@@ -28,33 +28,38 @@ const OrderSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  order_status: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: "Belum Bayar",
+  },
   order_date: {
     allowNull: false,
-    type: DataTypes.DATE
+    type: DataTypes.DATE,
   },
   return_date: {
     allowNull: false,
-    type: DataTypes.DATE
+    type: DataTypes.DATE,
   },
   service_fee: {
     allowNull: false,
-    type: DataTypes.FLOAT
+    type: DataTypes.FLOAT,
   },
   rent_price: {
     allowNull: false,
-    type: DataTypes.FLOAT
+    type: DataTypes.FLOAT,
   },
   deposit: {
     allowNull: false,
-    type: DataTypes.FLOAT
+    type: DataTypes.FLOAT,
   },
   total_payment: {
     allowNull: false,
-    type: DataTypes.FLOAT
+    type: DataTypes.FLOAT,
   },
   note: {
-    type: DataTypes.TEXT
-  }
+    type: DataTypes.TEXT,
+  },
 };
 
 export { Order, OrderSchema };

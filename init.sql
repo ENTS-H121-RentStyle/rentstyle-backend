@@ -135,6 +135,7 @@ deskripsi ini buat validasi
   "rent_price": float,
   "total_payment": float,
   "order_status": "Belum dibayar",
+  "note": "Tidak ada",
   "user": {
     "adress": "adress"
   }
