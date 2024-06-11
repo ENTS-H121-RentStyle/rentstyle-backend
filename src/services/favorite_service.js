@@ -13,10 +13,6 @@ class FavoriteService {
     return res;
   }
 
-  async readAll() {
-    const res = await Favorite.findAll();
-    return res;
-  }
 
   async readSearch(userId, keyword) {
     const res = await Favorite.findAll({
@@ -24,7 +20,7 @@ class FavoriteService {
       include: [
         {
           model: Product,
-          attributes: ["product_name", "image", "rent_price", "product_price"],
+          attributes: ["image"],
           where: {
             [Op.or]: [
               { product_name: { [Op.like]: `%${keyword}%` } },
@@ -46,7 +42,7 @@ class FavoriteService {
       include: [
         {
           model: Product,
-          attributes: ["product_name", "image", "rent_price", "product_price"],
+          attributes: ["image"],
         },
       ],
     });

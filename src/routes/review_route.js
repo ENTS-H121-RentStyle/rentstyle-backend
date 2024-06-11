@@ -7,7 +7,7 @@ import { uploadMiddleware } from "../services/image_service.js";
 const router = Router();
 
 router
-    .post("/", tokenAuth, uploadMiddleware, validateAddReview, Controller.addReview)
+    .post("/", uploadMiddleware, validateAddReview, Controller.addReview)
     .get("/:id", Controller.getReviewByProductId)
     .delete("/:id", tokenAuth, Controller.dropReview);
 

@@ -8,7 +8,6 @@ const router = Router();
 
 router
     .post("/", tokenAuth, validateAddFavorite, Controller.addFavorite)
-    .get("/", Controller.getAllFavorite)
     .get("/search", Controller.getSearchFavorite)
     .get("/:id", Controller.findUserFavorite)
     .delete("/:id", Controller.dropFavorite)

@@ -12,7 +12,7 @@ router
   .get("/search", Controller.getSearch)
   .get("/filter", Controller.getFilter)
   .get("/:id", Controller.getDetailProduct)
-  .post("/", tokenAuth, uploadMiddleware, validateAddProduct, Controller.addProduct)
+  .post("/", uploadMiddleware, validateAddProduct, Controller.addProduct)
   .put("/:id", tokenAuth, uploadMiddleware, validateEditProduct, Controller.editProduct)
   .delete("/:id",tokenAuth, Controller.dropProduct);
 

@@ -40,14 +40,6 @@ const addFavorite = async(req, res) => {
     };
 };
 
-const getAllFavorite = async(req, res) => {
-    try {
-        const response = await service.readAll();
-        res.status(200).json(response);
-    } catch(error) {
-        res.status(500).send({ message: error.message });
-    };
-};
 
 const getSearchFavorite = async(req, res) => {
     try {
@@ -88,7 +80,6 @@ const dropFavorite = async(req, res) => {
 
 export default { 
     addFavorite,
-    getAllFavorite,
     getSearchFavorite,
     findUserFavorite,
     dropFavorite

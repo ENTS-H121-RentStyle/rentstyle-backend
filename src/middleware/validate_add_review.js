@@ -1,25 +1,42 @@
 import { body } from "express-validator";
 import { Review } from "../models/review_model.js";
+import { Order } from "../models/order_model.js";
+import { Product } from "../models/product_model.js";
+import { User } from "../models/user_model.js";
 
 const validateAddReview = [
     body("order_id")
         .isString()
         .notEmpty()
-        .withMessage("ID tidak boleh kosong."),
+        .withMessage("ID tidak boleh kosong.")
+        .custom(async (value) => {
+            const existingOrder = await Order.findByPk(value);
+            if (!existingOrder) {
+                throw new Error("Order dengan ID tersebut tidak ditemukan.");
+            }
+        }),
 
     body("product_id")
-        .isUUID()
-        .custom(async (value) => {
-        const review = await Review.findOne({ where: { product_id: value } });
-        if (review) {
-            return Promise.reject("ID produk sudah memiliki review.");
+    .isString()
+    .notEmpty()
+    .withMessage("Product ID tidak boleh kosong.")
+    .custom(async (value) => {
+        const existingProduct = await Product.findByPk(value);
+        if (!existingProduct) {
+            throw new Error("Product dengan ID tersebut tidak ditemukan.");
         }
     }),
 
     body("user_id")
         .isString()
         .notEmpty()
-        .withMessage("ID tidak boleh kosong."),
+        .withMessage("User ID tidak boleh kosong.")
+        .custom(async (value) => {  
+            const existingUser = await User.findByPk(value);
+            if (!existingUser) {
+                throw new Error("User dengan ID tersebut tidak ditemukan.");
+            }
+        }),   
 
     body("rating")
         .isInt({ min: 1, max: 5 })

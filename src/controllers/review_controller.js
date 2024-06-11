@@ -12,14 +12,20 @@ const addReview = async (req, res) => {
     }
     
     try {
+        const { order_id, product_id } = req.body;
+        const existingReview = await service.findReviewByOrderIdAndProductId(order_id, product_id);
+        if (existingReview) {
+            return res.status(400).json({ message: "User sudah melakukan review pada order ini" });
+        }
+
         let imageUrl = null;
         if (req.file) {
-        imageUrl = await uploadFileToGCS(req.file, "review");
+            imageUrl = await uploadFileToGCS(req.file, "review");
         }
     
         const reviewData = {
-        ...req.body,
-        image: imageUrl, // Menambahkan URL gambar ke data review
+            ...req.body,
+            image: imageUrl,
         };
     
         const response = await service.create(reviewData);
@@ -35,13 +41,13 @@ const getReviewByProductId = async (req, res) => {
         const response = await service.readReviewByProductId(id);
     
         const sanitizedResponse = response.map((item) => {
-          const { product_id, ...rest } = item.toJSON();
-          return rest;
+            const { product_id, user_id, ...rest } = item.toJSON();
+            return rest;
         });
         res.status(200).json(sanitizedResponse);
-      } catch (error) {
+    } catch (error) {
         res.status(500).send({ message: error.message });
-      }
+    }
 };
 
 const dropReview = async(req, res) => {
@@ -49,11 +55,11 @@ const dropReview = async(req, res) => {
         const { id } = req.params;
         const review = await Review.findByPk(id);
 
-        if(!review) {
+        if (!review) {
             return res.status(404).json({ message: "Review tidak ditemukan!" });
         }
 
-        if(review.image) {
+        if (review.image) {
             await deleteFileFromGCS(review.image);
         }
 
