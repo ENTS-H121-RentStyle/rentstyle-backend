@@ -10,6 +10,7 @@ import { Favorite, FavoriteSchema } from "./favorite_model.js";
 import { Order, OrderSchema } from "./order_model.js";
 import { Review, ReviewSchema } from "./review_model.js";
 // import { History, HistorySchema } from "./history_model.js";
+import { Result, ResultSchema } from "./result_model.js";
 
 const setupModels = (sequelize) => {
   Product.init(ProductSchema, Product.config(sequelize));
@@ -24,6 +25,7 @@ const setupModels = (sequelize) => {
   Order.init(OrderSchema, Order.config(sequelize));
   Review.init(ReviewSchema, Review.config(sequelize));
   // History.init(HistorySchema, History.config(sequelize))
+  Result.init(ResultSchema, Result.config(sequelize));
 
   Product.belongsTo(Seller, { foreignKey: "seller_id" });
   Seller.hasMany(Product, { foreignKey: "seller_id" });
@@ -58,6 +60,10 @@ const setupModels = (sequelize) => {
   Order.hasOne(Review, { foreignKey: "order_id" });
   Review.belongsTo(Order, { foreignKey: "order_id" });
   Order.belongsTo(User, { foreignKey: "user_id" });
+
+  User.hasMany(Result, { foreignKey: "user_id" });
+  Result.belongsTo(User, { foreignKey: "user_id" });
+
   // Size.belongsTo(Product, { foreignKey: "product_id" });
 
   // History.belongsTo(Order, {foreignKey: "order_id"})
