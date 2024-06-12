@@ -10,6 +10,7 @@ import FavoriteRouter from "./favorite_route.js";
 import ReviewRouter from "./review_route.js";
 import followRouter from "./size_route.js";
 import orderRouter from "./order_route.js";
+import resultRouter from "./result_route.js";
 
 function routerApi(app) {
   const router = Router();
@@ -25,6 +26,7 @@ function routerApi(app) {
   router.use("/follow", followRouter);
   router.use("/order", orderRouter)
   router.use("/review", ReviewRouter);
+  router.use("/result", resultRouter);
 }
 
 export default routerApi;
