@@ -18,6 +18,11 @@ class OrderService {
     return res;
   }
 
+  async readAll(){
+    const res = await Order.findAll()
+    return res;
+  }
+
   async readOne(orderId) {
     const res = await Order.findByPk(orderId, {
       include: {

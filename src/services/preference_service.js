@@ -43,11 +43,11 @@ class PreferenceService {
       const reviews = user.Reviews && user.Reviews.length > 0 ? user.Reviews[0].dataValues : {}; // Check if reviews exist
   
       return {
-        id: item.dataValues.id, // Change from user.id to item.dataValues.id
+        pref_id: item.dataValues.id, // Change from user.id to item.dataValues.id
         user_id: item.dataValues.user_id, // Change from user.user_id to item.dataValues.user_id
-        category: item.category,
-        color: item.color,
-        size: item.size,
+        category_preference: item.category,
+        color_preference: item.color,
+        size_preference: item.size,
         count_num_rating_user: reviews.count_num_rating_user || 0, // Set default value to 0 if reviews are undefined
         avg_rating_user: reviews.avg_rating_user || null, // Set default value to null if reviews are undefined
       };
@@ -56,9 +56,9 @@ class PreferenceService {
     return transformedRes;
   }
 
-  async readOne(prefId) {
-    const res = await Preference.findByPk({
-      where: { pref_id: prefId },
+  async readOne(userId) {
+    const res = await Preference.findOne({
+      where: { user_id: userId },
       include: [
         {
           model: User,

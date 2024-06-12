@@ -10,7 +10,7 @@ const router = Router();
 
 router
   .post("/", tokenAuth, uploadMiddleware, validate_add_user, Controller.addUser)
-  .get("/:id", Controller.findDetailUser)
+  .get("/:id", tokenAuth, Controller.findDetailUser)
   .put("/:id", tokenAuth, uploadMiddleware, validateEditUser,  Controller.editUser)
   .delete("/:id", tokenAuth, Controller.dropUser);
 

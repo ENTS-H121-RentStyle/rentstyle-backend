@@ -1,7 +1,10 @@
 import { ProductService } from "../services/product_service.js";
 import { validationResult } from "express-validator";
 import { Product } from "../models/product_model.js";
-import { uploadFileToGCS, deleteFileFromGCS } from "../services/image_service.js";
+import {
+  uploadFileToGCS,
+  deleteFileFromGCS,
+} from "../services/image_service.js";
 
 const service = new ProductService();
 
@@ -46,7 +49,6 @@ const getSearch = async (req, res) => {
   }
 };
 
-
 const getAllProduct = async (req, res) => {
   try {
     const response = await service.readAll();
@@ -58,8 +60,20 @@ const getAllProduct = async (req, res) => {
 
 const getFilter = async (req, res) => {
   try {
+    let response;
     const { key } = req.query;
-    const response = await service.readFilter(key);
+    response =(
+      key == "Terbaru"
+        ? await service.findLatest()
+        : key == "Termahal"
+        ? await service.findMostExpensive()
+        : key == "Termurah"
+        ? await service.findCheapest()
+        : key == "Terpopuler"
+        ? await service.sortByMostOrders()
+        : key == "Tertinggi"
+        ? await service.sortByHighestRating()
+        : await service.readFilter(key));
     res.status(200).json(response);
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -117,7 +131,7 @@ const dropProduct = async (req, res) => {
     const { id } = req.params;
 
     const product = await Product.findByPk(id);
-    
+
     if (!product) {
       return res.status(404).json({ message: "Produk tidak ditemukan." });
     }
@@ -134,4 +148,12 @@ const dropProduct = async (req, res) => {
   }
 };
 
-export default { addProduct, getSearch, getAllProduct, getFilter, getDetailProduct, editProduct, dropProduct };
+export default {
+  addProduct,
+  getSearch,
+  getAllProduct,
+  getFilter,
+  getDetailProduct,
+  editProduct,
+  dropProduct,
+};

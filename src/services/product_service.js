@@ -5,6 +5,7 @@ import { Product } from "../models/product_model.js";
 import { Seller } from "../models/seller_model.js";
 import { Review } from "../models/review_model.js";
 import { Sequelize, literal } from "sequelize";
+import { Order } from "../models/order_model.js";
 
 class ProductService {
   constructor() {}
@@ -15,7 +16,28 @@ class ProductService {
     return res;
   }
 
-  async readAll() {
+  async findLatest() {
+    const res = await Product.findAll({
+      order: [["createdAt", "DESC"]],
+    });
+    return res;
+  }
+
+  async findCheapest() {
+    const res = await Product.findAll({
+      order: [["product_price", "ASC"]],
+    });
+    return res;
+  }
+
+  async findMostExpensive() {
+    const res = await Product.findAll({
+      order: [["product_price", "DESC"]],
+    });
+    return res;
+  }
+
+  async sortByMostOrders() {
     const res = await Product.findAll({
       attributes: [
         "id",
@@ -24,14 +46,65 @@ class ProductService {
         "color",
         "size",
         "rent_price",
-        [Sequelize.fn('COUNT', Sequelize.col('Reviews.review_id')), 'count_num_rating'], // Adjusted column name here
-        [Sequelize.fn('AVG', Sequelize.col('Reviews.rating')), 'avg_rating'], // Adjusted column name here
+        [Sequelize.fn('COUNT', Sequelize.col('Orders.product_id')), 'total_orders']
       ],
       include: [{
-        model: Review,
+        model: Order,
         attributes: []
       }],
-      group: ['Product.product_id'] // Group by product id
+      group: ['Product.product_id'], // Group by product id
+      order: [[literal('total_orders'), 'DESC']]
+    });
+
+    return res;
+  }
+
+  async sortByHighestRating() {
+    const res = await Product.findAll({
+      attributes: [
+        "id",
+        "product_name",
+        "category",
+        "color",
+        "size",
+        "rent_price",
+        [Sequelize.fn("AVG", Sequelize.col("Reviews.rating")), "avg_rating"],
+      ],
+      include: [
+        {
+          model: Review,
+          attributes: [],
+        },
+      ],
+      group: ["Product.product_id"], // Group by product id
+      order: [[literal("avg_rating"), "DESC"]],
+    });
+
+    return res;
+  }
+
+  async readAll() {
+    const res = await Product.findAll({
+      attributes: [
+        ["product_id", "product_id"],
+        "product_name",
+        "category",
+        "color",
+        "size",
+        "rent_price",
+        [
+          Sequelize.fn("COUNT", Sequelize.col("Reviews.review_id")),
+          "count_num_rating",
+        ], // Adjusted column name here
+        [Sequelize.fn("AVG", Sequelize.col("Reviews.rating")), "avg_rating"], // Adjusted column name here
+      ],
+      include: [
+        {
+          model: Review,
+          attributes: [],
+        },
+      ],
+      group: ["Product.product_id"], // Group by product id
     });
 
     return res;
@@ -61,14 +134,14 @@ class ProductService {
         },
       ],
     };
-  
+
     // Check if categoryKey is provided and is valid
     if (categoryKey) {
       // Check if categoryKey is valid by querying the database
       const validCategory = await Product.findOne({
-        where: { category: categoryKey }
+        where: { category: categoryKey },
       });
-  
+
       if (validCategory) {
         whereCondition[Op.or].push({
           category: categoryKey,
@@ -78,7 +151,7 @@ class ProductService {
         return false;
       }
     }
-  
+
     const res = await Product.findAll({
       where: whereCondition,
     });

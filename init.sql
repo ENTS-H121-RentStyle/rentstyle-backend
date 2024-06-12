@@ -1,31 +1,17 @@
 INSERT INTO `products` (`product_id`, `product_name`, `seller_id`, `category`, `image`, `color`, `size`, `desc`, `price`, `count_num_rating`, `avg_rating`) VALUES ('5765033751', 'Baju Bianca', 'S111', 'Cosplay', '404','Biru', 'L', 'Baju Waifu', '100000', '69', '4.5');
 INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VALUES ('C111', 'Yoga', NULL, NULL, NULL);
-
 {
-  {
-    "product_name": "Bianca Veritas",
-    "seller_id": 1,
-    "category": "Cosplay",
-    "image": "url",
-    "color": "Hitam",
-    "size": "L",
-    "desc": "Default Coating",
-    "price": 100000
-  }
-}
-
-{
-  "id": "{Generate by Backend :) }",
+  "product_id": "7400cbcc-45f1-4300-9d15-598890f5ee06",
   "product_name": "Bianca Veritas",
   "seller_id": "1",
   "category": "Cosplay",
   "image": "url",
   "color": "Hitam",
+  "size": "L",
   "desc": "Default Coating",
   "rent_price": 100000,
   "product_price": 1000000
 }
-
 {
   "id": "{Firebase UUID}",
   "name": "Yoga",
@@ -139,6 +125,20 @@ deskripsi ini buat validasi
   "user": {
     "adress": "adress"
   }
+}
+
+{
+  "product_id": "id",
+  "user_id": "id",
+  "order_date": "29-5-2024",
+  "return_date": "1-6-2024",
+  "rent_duration": 3,
+  "service_fee": 10000,
+  "deposit_money": 20000,
+  "rent_price": 50000,
+  "total_payment": 80000,
+  "order_status": "Belum dibayar",
+  "note": "Tidak ada",
 }
 
   "id": "{Generate by Backend}"

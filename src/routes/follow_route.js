@@ -7,8 +7,8 @@ const router = Router();
 
 router
   .post("/", tokenAuth, validateAddFollow, Controller.addFollow)
-  .get("/following:", Controller.getOneFollow)
-  .get("/filter", Controller.filterFollow)
-  .delete("/:id", Controller.dropFollow);
+  .get("/following:", tokenAuth, Controller.getOneFollow)
+  .get("/filter", tokenAuth, Controller.filterFollow)
+  .delete("/:id", tokenAuth, Controller.dropFollow);
 
 export default router;

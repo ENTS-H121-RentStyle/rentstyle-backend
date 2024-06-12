@@ -28,6 +28,7 @@ const getAllPreference = async (req, res) => {
 
 const getPreferenceDetail = async (req, res) => {
   try {
+    const { id } = req.params;
     const response = await service.readOne()
     res.status(200).json(response)
   } catch (error) {

@@ -49,6 +49,8 @@ const setupModels = (sequelize) => {
   User.hasOne(Seller, { foreignKey: "user_id" });
   Seller.belongsTo(User, { foreignKey: "user_id" });
 
+  Product.hasMany(Order, {foreignKey: "product_id"})
+  Order.belongsTo(Product, {foreignKey: "product_id"})
   Product.hasMany(Review, { foreignKey: "product_id" });
   Review.belongsTo(Product, { foreignKey: "product_id" });
 
