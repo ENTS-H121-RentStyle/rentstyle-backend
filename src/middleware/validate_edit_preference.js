@@ -2,39 +2,79 @@ import { body } from "express-validator";
 import { Product } from "../models/product_model.js";
 
 const validateEditPreference = [
-  body("id").custom((value, { req }) => {
+  body("id").custom((value) => {
     if (value !== undefined) {
       throw new Error("ID tidak boleh diubah.");
     }
     return true;
   }),
-  body("user_id").custom((value, { req }) => {
+  body("user_id").custom((value) => {
     if (value !== undefined) {
       throw new Error("ID tidak boleh diubah.");
     }
     return true;
   }),
-  body("size").optional()
+  body("size")
+    .optional()
     .isString()
-    .isIn(["S", "M", "L", "XL", "XXL", "XXXL"])
     .notEmpty()
-    .withMessage("Size harus salah satu dari nilai berikut: S, M, L, XL"),
-  body("category").optional()
-    .isString()
-    .isIn(["Adat", "Cosplay", "Formal", "Pesta"])
+    .withMessage("Size tidak boleh kosong"),
+  body("category")
+    .optional()
+    .isArray()
     .notEmpty()
-    .withMessage(
-      "Kategori harus salah satu dari nilai berikut: Adat, Cosplay, Formal, dan Pesta"
-    ),
-  body("color").optional()
-    .isString()
+    .withMessage("Kategori tidak boleh kosong")
+    .custom((value) => {
+      const validCategories = ["Adat", "Cosplay", "Formal", "Pesta"];
+      if (Array.isArray(value)) {
+        if (value.length > 3) {
+          throw new Error(
+            "Jumlah kategori dalam array tidak boleh lebih dari 3"
+          );
+        }
+        for (let category of value) {
+          if (!validCategories.includes(category)) {
+            throw new Error(
+              "Kategori harus  dari nilai berikut: Adat, Cosplay, Formal, dan Pesta"
+            );
+          }
+        }
+      } else {
+        throw new Error("Kategori harus berupa array");
+      }
+    }),
+  body("color")
+    .optional()
+    .isArray()
     .notEmpty()
     .custom(async (value) => {
-      const existingColor = await Product.findOne({
-        where: { color: value },
-      });
-      if (!existingColor) {
-        throw new Error("Warna tidak ditemukan.");
+      const validateColor = [
+        "Abu-abu",
+        "Biru",
+        "Coklat",
+        "Hijau",
+        "Hitam",
+        "Krem",
+        "Kuning",
+        "Merah",
+        "Merah muda",
+        "Oranye",
+        "Putih",
+        "Ungu",
+      ];
+      if (Array.isArray(value)) {
+        if (value.length > 3) {
+          throw new Error("Jumlah Warna tidak boleh lebih dari 3");
+        }
+        for (let category of value) {
+          if (!validateColor.includes(category)) {
+            throw new Error(
+              "Warna harus  dari nilai berikut: Abu-abu, Biru, Coklat, Hijau, Hitam, Krem, Kuning, Merah, Merah muda, Oranye, Putih, Ungu"
+            );
+          }
+        }
+      } else {
+        throw new Error("Warna harus berupa array");
       }
     }),
 ];
