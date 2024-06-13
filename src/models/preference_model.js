@@ -25,10 +25,10 @@ const PreferenceSchema = {
     type: DataTypes.STRING,
   },
   category: {
-    type: DataTypes.ARRAY,
+    type: DataTypes.STRING,
   },
   color: {
-    type: DataTypes.ARRAY,
+    type: DataTypes.STRING,
   },
   size: {
     type: DataTypes.STRING,
