@@ -8,9 +8,9 @@ import { Op } from "sequelize";
 class ResultService {
     constructor() {}
 
-    async create(data, category) {
+    async create(data, modelType) {
         const resultId = crypto.randomUUID();
-        const res = await Result.create({ ...data, id: resultId, category });
+        const res = await Result.create({ ...data, id: resultId, modelType });
         return res;
     }
 

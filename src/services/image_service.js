@@ -1,12 +1,15 @@
 import multer from "multer";
 import { Storage } from "@google-cloud/storage";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const upload = multer({
   storage: multer.memoryStorage(),
 });
 
 // Konfigurasi Google Cloud Storage
-const bucketName = 'rentstyle-img';
+const bucketName = process.env.GCS_BUCKET_NAME;
 const storage = new Storage();
 const bucket = storage.bucket(bucketName);
 

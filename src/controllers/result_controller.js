@@ -11,7 +11,7 @@ const addResultModel1 = async (req, res) => {
     }
     
     try {
-        const response = await service.create({ ...req.body, category: 'model1' });
+        const response = await service.create({ ...req.body, model_type: 'model1' });
         res.status(201).json(response);
     } catch (error) {
         res.status(500).send({ message: error.message });
@@ -25,7 +25,7 @@ const addResultModel2 = async (req, res) => {
     }
     
     try {
-        const response = await service.create({ ...req.body, category: 'model2' });
+        const response = await service.create({ ...req.body, model_type: 'model2' });
         res.status(201).json(response);
     } catch (error) {
         res.status(500).send({ message: error.message });
