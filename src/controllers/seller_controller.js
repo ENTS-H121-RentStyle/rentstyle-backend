@@ -4,8 +4,12 @@ import { Seller } from "../models/seller_model.js";
 // import { Op } from "sequelize";
 import { User } from "../models/user_model.js";
 import { uploadFileToGCS, deleteFileFromGCS } from "../services/image_service.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const service = new SellerService();
+const DEFAULT_IMAGE_SELLER = process.env.DEFAULT_IMAGE_SELLER;
 
 const addSeller = async(req, res) => {
 
@@ -18,14 +22,14 @@ const addSeller = async(req, res) => {
 
     try {
 
-        let imageUrl = null;
+        let imageUrl = DEFAULT_IMAGE_SELLER;
         if (req.file) {
           imageUrl = await uploadFileToGCS(req.file, "seller");
         }
 
         const sellerData = {
         ...req.body,
-        image: imageUrl, // Menambahkan URL gambar ke data produk
+        image: imageUrl,
         };
 
         const existingUser = await User.findOne({

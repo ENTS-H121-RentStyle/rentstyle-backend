@@ -35,24 +35,24 @@ const validateAddSeller = [
         .isIn(["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"])
         .withMessage("Kota harus salah satu dari nilai berikut: Jakarta, Bogor, Depok, Tangerang, Bekasi"),
 
-
-    body("image")
-    .custom((value, { req }) => {
+    body("image").custom((value, { req }) => {
         if (!req.file) {
-        throw new Error("Gambar harus diupload.");
+            return true;
         }
         const allowedExtensions = ["jpg", "jpeg", "png"];
         const fileExtension = req.file.originalname.split(".").pop().toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
-        throw new Error("Format gambar tidak valid. Hanya file JPG, JPEG, PNG yang diperbolehkan.");
+            throw new Error(
+            "Format gambar tidak valid. Hanya file JPG, JPEG, PNG yang diperbolehkan."
+            );
         }
         const fileSizeInBytes = req.file.size;
         const maxSizeInBytes = 1 * 1024 * 1024;
         if (fileSizeInBytes > maxSizeInBytes) {
-        throw new Error("Ukuran gambar terlalu besar. Maksimal 1MB.");
+            throw new Error("Ukuran gambar terlalu besar. Maksimal 1MB.");
         }
         return true;
-    })
+        }),
 ];
 
 export default validateAddSeller;

@@ -23,7 +23,26 @@ const validateAddUser = [
       if (existingUser) {
         throw new Error("Email sudah terdaftar.");
       }
-    })
+    }),
+  
+  body("image").custom((value, { req }) => {
+    if (!req.file) {
+      return true;
+    }
+    const allowedExtensions = ["jpg", "jpeg", "png"];
+    const fileExtension = req.file.originalname.split(".").pop().toLowerCase();
+    if (!allowedExtensions.includes(fileExtension)) {
+      throw new Error(
+        "Format gambar tidak valid. Hanya file JPG, JPEG, PNG yang diperbolehkan."
+      );
+    }
+    const fileSizeInBytes = req.file.size;
+    const maxSizeInBytes = 1 * 1024 * 1024;
+    if (fileSizeInBytes > maxSizeInBytes) {
+      throw new Error("Ukuran gambar terlalu besar. Maksimal 1MB.");
+    }
+    return true;
+  }),
 ];
 
 export default validateAddUser;

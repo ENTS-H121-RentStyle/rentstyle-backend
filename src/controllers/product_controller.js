@@ -1,28 +1,31 @@
 import { ProductService } from "../services/product_service.js";
 import { validationResult } from "express-validator";
 import { Product } from "../models/product_model.js";
-import {
-  uploadFileToGCS,
-  deleteFileFromGCS,
-} from "../services/image_service.js";
+import { uploadFileToGCS, deleteFileFromGCS, } from "../services/image_service.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const service = new ProductService();
+const DEFAULT_IMAGE_PRODUCT = process.env.DEFAULT_IMAGE_PRODUCT;
+
 
 const addProduct = async (req, res) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
   try {
-    let imageUrl = null;
+    let imageUrl = DEFAULT_IMAGE_PRODUCT;
     if (req.file) {
       imageUrl = await uploadFileToGCS(req.file, "product");
     }
 
     const productData = {
       ...req.body,
-      image: imageUrl, // Menambahkan URL gambar ke data produk
+      image: imageUrl,
     };
 
     const response = await service.create(productData);
