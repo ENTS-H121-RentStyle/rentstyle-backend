@@ -2,8 +2,12 @@ import { validationResult } from "express-validator";
 import { UserService } from "../services/user_service.js";
 import { User } from "../models/user_model.js";
 import { uploadFileToGCS, deleteFileFromGCS } from "../services/image_service.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const service = new UserService();
+const DEFAULT_IMAGE_USER = process.env.DEFAULT_IMAGE_USER;
 
 const addUser = async (req, res) => {
   const errors = validationResult(req)
@@ -12,14 +16,14 @@ const addUser = async (req, res) => {
   }
 
   try {
-      let imageUrl = null;
+      let imageUrl = DEFAULT_IMAGE_USER;
       if (req.file) {
         imageUrl = await uploadFileToGCS(req.file, "user");
       }
   
       const userData = {
         ...req.body,
-        image: imageUrl, // Menambahkan URL gambar ke data produk
+        image: imageUrl,
       };
 
     const response = await service.create(userData);

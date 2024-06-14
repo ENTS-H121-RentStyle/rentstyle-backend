@@ -26,7 +26,7 @@ const validateAddProduct = [
     ),
   body("image").custom((value, { req }) => {
     if (!req.file) {
-      throw new Error("Gambar harus diupload.");
+      return true;
     }
     const allowedExtensions = ["jpg", "jpeg", "png"];
     const fileExtension = req.file.originalname.split(".").pop().toLowerCase();
