@@ -9,18 +9,9 @@ const addResultModel1 = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
-    const recommendationString = req.body.recommendation.join(", ");
-  
-    const transformRequest = await service.create({
-      ...req.body,
-      recommendation: recommendationString,
-      model_type: 'model1'
-    });
     
     try {
-        console.log(transformRequest)
-        const response = await service.create(transformRequest);
+        const response = await service.create(req.body, "model1");
         res.status(201).json(response);
     } catch (error) {
         res.status(500).send({ message: error.message });
@@ -32,18 +23,9 @@ const addResultModel2 = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
-    const recommendationString = req.body.recommendation.join(", ");
-  
-    const transformRequest = await service.create({
-      ...req.body,
-      recommendation: recommendationString,
-      model_type: 'model2'
-    });
     
     try {
-        console.log(transformRequest)
-        const response = await service.create(transformRequest);
+        const response = await service.create(req.body, "model2");
         res.status(201).json(response);
     } catch (error) {
         res.status(500).send({ message: error.message });

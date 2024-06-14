@@ -2,7 +2,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `seller_id`, `category`, `
 INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VALUES ('C111', 'Yoga', NULL, NULL, NULL);
 {
   "user_id": "2",
-  "recomendation": "[\"7400cbcc-45f1-4300-9d15-598890f5ee06\", \"e8bfd946-bc9b-4a61-a451-b44a3562c00f\"]",
+  "recommendation": "[\"7400cbcc-45f1-4300-9d15-598890f5ee06\", \"e8bfd946-bc9b-4a61-a451-b44a3562c00f\"]",
   "model_type": "model2"
 }
 

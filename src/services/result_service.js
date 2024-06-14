@@ -1,16 +1,21 @@
 import "../configs/database.js";
 import crypto from "crypto";
 import { Result } from "../models/result_model.js";
-import { Sequelize } from "sequelize";
 import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
 
 class ResultService {
   constructor() {}
 
-  async create(data, modelType) {
+  async create(data, model) {
     const resultId = crypto.randomUUID();
-    const res = await Result.create({ ...data, id: resultId, modelType });
+    const recommendationString = data.recommendation.join(", ");
+    const res = await Result.create({
+      ...data,
+      id: resultId,
+      modelType: model,
+      recommendation: recommendationString,
+    });
     return res;
   }
 

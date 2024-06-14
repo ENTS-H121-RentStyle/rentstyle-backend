@@ -29,7 +29,7 @@ const UserSchema = {
     type: DataTypes.STRING,
   },
   birth_date: {
-    type: DataTypes.DATE
+    type: DataTypes.DATEONLY
   },
   address: {
     type: DataTypes.STRING

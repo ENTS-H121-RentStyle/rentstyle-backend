@@ -10,10 +10,17 @@ class PreferenceService {
 
   async create(data) {
     const prefId = crypto.randomUUID();
-    const res = await Preference.create({ ...data, id: prefId });
+    const categoryString = data.category.join(", ");
+    const colorString = data.color.join(", ");
+    const res = await Preference.create({
+      ...data,
+      id: prefId,
+      category: categoryString,
+      color: colorString,
+    });
     return res;
   }
-  
+
   async readAll() {
     const res = await Preference.findAll({
       include: [

@@ -8,18 +8,9 @@ const addPreference = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const categoryString = req.body.category.join(", ");
-  const colorString = req.body.color.join(", ");
-
-  const transformRequest = await service.create({
-    ...req.body,
-    user_id: req.body.user_id,
-    category: categoryString,
-    color: colorString,
-  });
-
+  
   try {
-    const response = await service.create(transformRequest);
+    const response = await service.create(req.body);
     res.status(201).json(response);
   } catch (error) {
     res.status(500).send({ message: error.message });
