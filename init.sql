@@ -1,6 +1,12 @@
 INSERT INTO `products` (`product_id`, `product_name`, `seller_id`, `category`, `image`, `color`, `size`, `desc`, `price`, `count_num_rating`, `avg_rating`) VALUES ('5765033751', 'Baju Bianca', 'S111', 'Cosplay', '404','Biru', 'L', 'Baju Waifu', '100000', '69', '4.5');
 INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VALUES ('C111', 'Yoga', NULL, NULL, NULL);
 {
+  "user_id": "2",
+  "recomendation": "[\"7400cbcc-45f1-4300-9d15-598890f5ee06\", \"e8bfd946-bc9b-4a61-a451-b44a3562c00f\"]",
+  "model_type": "model2"
+}
+
+{
   "product_id": "7400cbcc-45f1-4300-9d15-598890f5ee06",
   "product_name": "Bianca Veritas",
   "seller_id": "1",
@@ -24,11 +30,10 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
 }
 
 {
-  "id": "{Generate by Backend}",
-  "customer_id": "{ID}",
-  "category": "Cosplay",
-  "color": "red",
-  "size": "L",
+  "customer_id": "1",
+  "category": "["Cosplay", "Formal"],
+  "color": "["Putih", "Biru", "Hitam"]",
+  "size": "L"
 }
 
 {

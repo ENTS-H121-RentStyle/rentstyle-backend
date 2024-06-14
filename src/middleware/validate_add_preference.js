@@ -22,7 +22,7 @@ const validateAddPreference = [
   body("category")
     .notEmpty()
     .withMessage("Kategori tidak boleh kosong.")
-    .custom((value) => {
+    .custom(async (value) => {
       const validCategories = ["Adat", "Cosplay", "Formal", "Pesta"];
       if (Array.isArray(value)) {
         if (value.length > 3) {

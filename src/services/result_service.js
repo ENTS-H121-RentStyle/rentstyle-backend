@@ -41,7 +41,7 @@ class ResultService {
         ],
       },
     });
-    const recommendationArray = JSON.parse(product.recomendation);
+    const recommendationArray = product.recomendation.split(", ");
     const res = await Product.findAll({
       where: { id: { [Op.in]: recommendationArray } },
     });
