@@ -13,8 +13,7 @@ const validateAddResult = [
         }
     }),   
 
-    body("recomendation")
-    .isString()
+    body("recommendation")
     .notEmpty()
     .withMessage("Rekomendasi tidak boleh kosong."),
 

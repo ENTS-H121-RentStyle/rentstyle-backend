@@ -9,6 +9,8 @@ class Product extends Model {
       tableName: TABLE_NAME,
       modelName: "Product",
       timestamps: true,
+      createdAt: 'createdAt',
+      updatedAt: false,
     }
   }
 }
@@ -56,6 +58,11 @@ const ProductSchema = {
     allowNull: false,
     type: DataTypes.FLOAT
   },
+  createdAt: { 
+    allowNull: false,
+    type: DataTypes.DATEONLY,
+    field: 'createdAt'
+},
 }
 
 export { Product, ProductSchema }

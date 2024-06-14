@@ -1,15 +1,17 @@
-import { Model, DataTypes } from "sequelize"
+import { Model, DataTypes } from "sequelize";
 
-const TABLE_NAME = "results"
+const TABLE_NAME = "results";
 
 class Result extends Model {
     static config(sequelize) {
         return {
-        sequelize,
-        tableName: TABLE_NAME,
-        modelName: "Result",
-        timestamps: true,
-        }
+            sequelize,
+            tableName: TABLE_NAME,
+            modelName: "Result",
+            timestamps: true,
+            createdAt: 'createdAt',
+            updatedAt: false,
+        };
     }
 }
 
@@ -24,7 +26,7 @@ const ResultSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
-    recomendation: {
+    recommendation: { 
         allowNull: false,
         type: DataTypes.STRING,
     },
@@ -32,8 +34,11 @@ const ResultSchema = {
         allowNull: false,
         type: DataTypes.STRING,
     },
-}
+    createdAt: { 
+        allowNull: false,
+        type: DataTypes.DATEONLY,
+        field: 'createdAt'
+    },
+};
 
-export { Result, ResultSchema }
-
-    
+export { Result, ResultSchema };
