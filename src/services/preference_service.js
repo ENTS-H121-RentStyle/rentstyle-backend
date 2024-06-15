@@ -10,7 +10,14 @@ class PreferenceService {
 
   async create(data) {
     const prefId = crypto.randomUUID();
-    const res = await Preference.create({ ...data, id: prefId });
+    const categoryString = data.category.join(", ");
+    const colorString = data.color.join(", ");
+    const res = await Preference.create({
+      ...data,
+      id: prefId,
+      category: categoryString,
+      color: colorString,
+    });
     return res;
   }
 
@@ -38,10 +45,13 @@ class PreferenceService {
       group: ["id"], // Group by user_id
     });
 
-    const transformedRes = res.map(item => {
+    const transformedRes = res.map((item) => {
       const user = item.User;
-      const reviews = user.Reviews && user.Reviews.length > 0 ? user.Reviews[0].dataValues : {}; // Check if reviews exist
-  
+      const reviews =
+        user.Reviews && user.Reviews.length > 0
+          ? user.Reviews[0].dataValues
+          : {}; // Check if reviews exist
+
       return {
         pref_id: item.dataValues.id, // Change from user.id to item.dataValues.id
         user_id: item.dataValues.user_id, // Change from user.user_id to item.dataValues.user_id
@@ -52,7 +62,7 @@ class PreferenceService {
         avg_rating_user: reviews.avg_rating_user || null, // Set default value to null if reviews are undefined
       };
     });
-  
+
     return transformedRes;
   }
 

@@ -35,11 +35,11 @@ const OrderSchema = {
   },
   order_date: {
     allowNull: false,
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
   },
   return_date: {
     allowNull: false,
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
   },
   service_fee: {
     allowNull: false,

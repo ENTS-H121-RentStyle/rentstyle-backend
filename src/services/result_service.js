@@ -1,7 +1,6 @@
 import "../configs/database.js";
 import crypto from "crypto";
 import { Result } from "../models/result_model.js";
-import { Sequelize } from "sequelize";
 import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
 

@@ -8,18 +8,9 @@ const addPreference = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const categoryString = req.body.category.join(", ");
-  const colorString = req.body.color.join(", "); 
-
-  const transformRequest = await service.create({
-    ...req.body,
-    user_id: req.body.user_id,
-    category: categoryString,
-    color: colorString
-  });
-
+  
   try {
-    const response = await service.create(transformRequest);
+    const response = await service.create(req.body);
     res.status(201).json(response);
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -31,18 +22,19 @@ const getAllPreference = async (req, res) => {
     const response = await service.readAll();
     res.status(200).json(response);
   } catch (error) {
-    res.status(500).send({ message: error.message })
+    res.status(500).send({ message: error.message });
   }
 };
 
 const getPreferenceDetail = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await service.readOne()
-    res.status(200).json(response)
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
+    const response = await service.readOne(id);
+    if (!response) {
+      res.status(404).json({});
+    }
+    res.status(200).json(response);
+  } catch (error) {}
 };
 
 const editPreference = async (req, res) => {
@@ -61,7 +53,7 @@ const editPreference = async (req, res) => {
         .status(404)
         .json({ message: "User Preference tidak ditemukan." });
     }
-    
+
     const response = await service.update(id, body);
     res.status(200).json(response);
   } catch (error) {
