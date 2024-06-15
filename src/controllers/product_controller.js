@@ -1,14 +1,17 @@
 import { ProductService } from "../services/product_service.js";
 import { validationResult } from "express-validator";
 import { Product } from "../models/product_model.js";
-import { uploadFileToGCS, deleteFileFromGCS, } from "../services/image_service.js";
+import {
+  uploadFileToGCS,
+  deleteFileFromGCS,
+} from "../services/image_service.js";
 import dotenv from "dotenv";
+import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
 
 dotenv.config();
 
 const service = new ProductService();
 const DEFAULT_IMAGE_PRODUCT = process.env.DEFAULT_IMAGE_PRODUCT;
-
 
 const addProduct = async (req, res) => {
   const errors = validationResult(req);
@@ -35,18 +38,25 @@ const addProduct = async (req, res) => {
   }
 };
 
-// Middleware untuk semua route lainnya
 const getSearch = async (req, res) => {
   try {
-    const { q } = req.query;
-    const { category } = req.query;
-    const response = await service.readSearch(q, category);
+    const { q, category, page=1, limit=10 } = req.query;
+    const searchProduct = await service.readSearch(q, category);
+    const totalCount = searchProduct.length;
+    paginatedProducts = paginateResults(filteredProduct, page, limit);
 
-    if (!response || (Array.isArray(response) && response.length === 0)) {
-      res.status(404).json({ message: "Product not found" });
-    } else {
-      res.status(200).json(response);
+    if (!paginatedProducts || paginatedProducts.length === 0) {
+      return res.status(404).json({ message: "Product tidak ditemukan" });
     }
+
+    const totalPages = calculateTotalPages(totalCount, limit);
+    const response = {
+      currentPage: page,
+      totalPages: totalPages,
+      totalItems: totalCount,
+      products: paginatedProducts,
+    };
+    return res.status(200).json(response)
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -63,9 +73,9 @@ const getAllProduct = async (req, res) => {
 
 const getFilter = async (req, res) => {
   try {
-    let response;
-    const { key } = req.query;
-    response =(
+    let filteredProduct;
+    const { key, page = 1, limit = 10 } = req.query;
+    filteredProduct =
       key == "Terbaru"
         ? await service.findLatest()
         : key == "Termahal"
@@ -76,7 +86,22 @@ const getFilter = async (req, res) => {
         ? await service.sortByMostOrders()
         : key == "Tertinggi"
         ? await service.sortByHighestRating()
-        : await service.readFilter(key));
+        : await service.readFilter(key);
+
+    const totalCount = filteredProduct.length;
+    paginatedProducts = paginateResults(filteredProduct, page, limit);
+
+    if (!paginatedProducts || paginatedProducts.length === 0) {
+      return res.status(404).json({ message: "Product tidak ditemukan" });
+    }
+
+    const totalPages = calculateTotalPages(totalCount, limit);
+    const response = {
+      currentPage: page,
+      totalPages: totalPages,
+      totalItems: totalCount,
+      products: paginatedProducts,
+    };
     res.status(200).json(response);
   } catch (error) {
     res.status(500).send({ message: error.message });
