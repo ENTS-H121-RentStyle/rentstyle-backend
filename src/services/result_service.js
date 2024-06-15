@@ -15,7 +15,8 @@ class ResultService {
   }
 
   async readModel1(userId, createdAt) {
-    const res = await Result.findOne({
+    const product = await Result.findOne({
+      attributes: ["recommendation"],
       where: {
         [Op.and]: [
           { user_id: userId },
@@ -24,18 +25,16 @@ class ResultService {
         ],
       },
     });
-    // if (!product) {
-    //   throw new Error("Product not found");
-    // }
-    // const recommendationArray = product.recommendation.split(", ");
-    // const res = await Product.findAll({
-    //   where: { id: { [Op.in]: recommendationArray } },
-    // });
+    const recommendationArray = product.recommendation.split(", ");
+    const res = await Product.findAll({
+      where: { id: { [Op.in]: recommendationArray } },
+    });
     return res;
   }
 
   async readModel2(userId, createdAt) {
-    const res = await Result.findOne({
+    const product = await Result.findOne({
+      attributes: ["recommendation"],
       where: {
         [Op.and]: [
           { user_id: userId },
@@ -44,13 +43,10 @@ class ResultService {
         ],
       },
     });
-    // if (!product) {
-    //   throw new Error("Product not found");
-    // }
-    // const recommendationArray = product.recommendation.split(", ");
-    // const res = await Product.findAll({
-    //   where: { id: { [Op.in]: recommendationArray } },
-    // });
+    const recommendationArray = product.recommendation.split(", ");
+    const res = await Product.findAll({
+      where: { id: { [Op.in]: recommendationArray } },
+    });
     return res;
   }
 }
