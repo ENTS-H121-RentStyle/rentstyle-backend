@@ -43,7 +43,7 @@ const getSearch = async (req, res) => {
     const { q, category, page=1, limit=10 } = req.query;
     const searchProduct = await service.readSearch(q, category);
     const totalCount = searchProduct.length;
-    const paginatedProducts = paginateResults(filteredProduct, page, limit);
+    const paginatedProducts = paginateResults(searchProduct, page, limit);
 
     if (!paginatedProducts || paginatedProducts.length === 0) {
       return res.status(404).json({ message: "Product tidak ditemukan" });
