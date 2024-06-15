@@ -8,14 +8,15 @@ import { Product } from "../models/product_model.js";
 class ResultService {
   constructor() {}
 
-  async create(data, modelType) {
+  async create(data) {
     const resultId = crypto.randomUUID();
-    const res = await Result.create({ ...data, id: resultId, modelType });
+    const currentDate = new Date().toISOString().split('T')[0]; 
+    const res = await Result.create({ ...data, id: resultId, createdAt: currentDate });
     return res;
   }
 
   async readModel1(userId, createdAt) {
-    const product = await Result.findOne({
+    const res = await Result.findOne({
       where: {
         [Op.and]: [
           { user_id: userId },
@@ -24,15 +25,18 @@ class ResultService {
         ],
       },
     });
-    const recommendationArray = product.recommendation.split(", ");
-    const res = await Product.findAll({
-      where: { id: { [Op.in]: recommendationArray } },
-    });
+    // if (!product) {
+    //   throw new Error("Product not found");
+    // }
+    // const recommendationArray = product.recommendation.split(", ");
+    // const res = await Product.findAll({
+    //   where: { id: { [Op.in]: recommendationArray } },
+    // });
     return res;
   }
 
   async readModel2(userId, createdAt) {
-    const product = await Result.findOne({
+    const res = await Result.findOne({
       where: {
         [Op.and]: [
           { user_id: userId },
@@ -41,10 +45,13 @@ class ResultService {
         ],
       },
     });
-    const recommendationArray = product.recommendation.split(", ");
-    const res = await Product.findAll({
-      where: { id: { [Op.in]: recommendationArray } },
-    });
+    // if (!product) {
+    //   throw new Error("Product not found");
+    // }
+    // const recommendationArray = product.recommendation.split(", ");
+    // const res = await Product.findAll({
+    //   where: { id: { [Op.in]: recommendationArray } },
+    // });
     return res;
   }
 }
