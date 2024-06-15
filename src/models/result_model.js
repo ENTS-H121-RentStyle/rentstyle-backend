@@ -28,7 +28,7 @@ const ResultSchema = {
     },
     recommendation: { 
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     },
     model_type: {
         allowNull: false,

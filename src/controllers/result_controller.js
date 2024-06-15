@@ -1,5 +1,6 @@
 import { ResultService } from "../services/result_service.js";
 import { validationResult } from "express-validator";
+import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
 
 const service = new ResultService();
 
@@ -71,7 +72,6 @@ const getResultModel1 = async (req, res) => {
         .json({ message: "userId dan createdAt diperlukan" });
     }
 
-    // Replace with actual service call to fetch data
     const allProducts = await service.readModel1(userId, createdAt);
     const totalCount = allProducts.length;
     const paginatedProducts = paginateResults(allProducts, page, limit);

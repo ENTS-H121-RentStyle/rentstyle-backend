@@ -8,7 +8,4 @@ const calculateTotalPages = (totalCount, limit = 10) => {
   return Math.ceil(totalCount / limit);
 };
 
-export default {
-  paginateResults,
-  calculateTotalPages,
-};
+export { paginateResults, calculateTotalPages };
