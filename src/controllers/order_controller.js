@@ -20,8 +20,8 @@ const addOrder = async (req, res) => {
     where: { id: product_id },
     attributes: ["rent_price"],
   });
-  const serviceFee = existingProduct.rent_price * 0.1;
-  if (Math.abs(service_fee - serviceFee) > Number.EPSILONcr) {
+  const serviceFee = existingProduct.rent_price * 0.5;
+  if (Math.abs(service_fee - serviceFee) > Number.EPSILON) {
     return res.status(400).json({ message: "Service Fee tidak sah." });
   }
 
