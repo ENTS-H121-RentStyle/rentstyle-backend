@@ -9,8 +9,8 @@ const router = Router();
 
 router
     .post("/", uploadMiddleware, validateAddFavorite, Controller.addFavorite)
-    .get("/search", Controller.getSearchFavorite)
-    .get("/:id", Controller.findUserFavorite)
-    .delete("/:id", Controller.dropFavorite)
+    .get("/search", tokenAuth, Controller.getSearchFavorite)
+    .get("/:id", tokenAuth,  Controller.findUserFavorite)
+    .delete("/:id", tokenAuth, Controller.dropFavorite)
 
 export default router;
