@@ -46,14 +46,19 @@ class ProductService {
         "color",
         "size",
         "rent_price",
-        [Sequelize.fn('COUNT', Sequelize.col('Orders.product_id')), 'total_orders']
+        [
+          Sequelize.fn("COUNT", Sequelize.col("Orders.product_id")),
+          "total_orders",
+        ],
       ],
-      include: [{
-        model: Order,
-        attributes: []
-      }],
-      group: ['Product.product_id'], // Group by product id
-      order: [[literal('total_orders'), 'DESC']]
+      include: [
+        {
+          model: Order,
+          attributes: [],
+        },
+      ],
+      group: ["Product.product_id"], // Group by product id
+      order: [[literal("total_orders"), "DESC"]],
     });
 
     return res;
@@ -96,11 +101,19 @@ class ProductService {
           Sequelize.fn("COUNT", Sequelize.col("Reviews.review_id")),
           "count_num_rating",
         ], // Adjusted column name here
-        [Sequelize.fn("AVG", Sequelize.col("Reviews.rating")), "avg_rating"], // Adjusted column name here
+        [Sequelize.fn("AVG", Sequelize.col("Reviews.rating")), "avg_rating"],
+        [
+          Sequelize.fn("COUNT", Sequelize.col("Orders.product_id")),
+          "count_num_order",
+        ],
       ],
       include: [
         {
           model: Review,
+          attributes: [],
+        },
+        {
+          model: Order,
           attributes: [],
         },
       ],
