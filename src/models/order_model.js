@@ -41,11 +41,15 @@ const OrderSchema = {
     allowNull: false,
     type: DataTypes.DATEONLY,
   },
-  service_fee: {
+  rent_duration: {
+    allowNull: false,
+    type: DataTypes.INTEGER
+  },
+  rent_price: {
     allowNull: false,
     type: DataTypes.FLOAT,
   },
-  rent_price: {
+  service_fee: {
     allowNull: false,
     type: DataTypes.FLOAT,
   },

@@ -16,6 +16,7 @@ const addOrder = async (req, res) => {
   const { rent_price } = req.body;
   const { deposit } = req.body;
   const { total_payment } = req.body;
+  const { rent_duration } = req.body;
   const existingProduct = await Product.findOne({
     where: { id: product_id },
     attributes: ["rent_price"],
@@ -25,7 +26,6 @@ const addOrder = async (req, res) => {
     return res.status(400).json({ message: "Service Fee tidak sah." });
   }
 
-  const { rent_duration } = req.body;
   const rentPrice = existingProduct.rent_price * rent_duration;
   if (Math.abs(rent_price - rentPrice) > Number.EPSILON) {
     return res.status(400).json({ message: "Rent Price tidak sah." });
