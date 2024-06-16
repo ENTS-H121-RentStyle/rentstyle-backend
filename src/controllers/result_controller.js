@@ -1,6 +1,8 @@
 import { ResultService } from "../services/result_service.js";
 import { validationResult } from "express-validator";
 import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
+import { getLastSunday } from "../utils/sunday.js";
+import { Order } from "../models/order_model.js";
 
 const service = new ResultService();
 
@@ -62,17 +64,19 @@ const addResultModel2 = async (req, res) => {
   }
 };
 
-const getResultModel1 = async (req, res) => {
+const getResultModel = async (req, res) => {
   try {
-    const { userId, createdAt, page = 1, limit = 10 } = req.query;
+    const { userId, page = 1, limit = 10 } = req.query;
 
-    if (!userId || !createdAt) {
-      return res
-        .status(400)
-        .json({ message: "userId dan createdAt diperlukan" });
+    let createdAt = getLastSunday();
+    if (!userId) {
+      return res.status(400).json({ message: "userId diperlukan" });
     }
 
-    const allProducts = await service.readModel1(userId, createdAt);
+    const orderCount = await Order.findAll({ where: { user_id: userId } });
+    const modelType=orderCount.length >= 10? "model2" : "model1"
+
+    const allProducts = await service.readModel(userId, createdAt, modelType);
     const totalCount = allProducts.length;
     const paginatedProducts = paginateResults(allProducts, page, limit);
 
@@ -95,31 +99,8 @@ const getResultModel1 = async (req, res) => {
   }
 };
 
-const getResultModel2 = async (req, res) => {
-  try {
-    const { userId, createdAt } = req.query;
-
-    if (!userId || !createdAt) {
-      return res
-        .status(400)
-        .json({ message: "userId dan createdAt diperlukan" });
-    }
-
-    const products = await service.readModel2(userId, createdAt);
-
-    if (!products || products.length === 0) {
-      return res.status(404).json({ message: "Result tidak ditemukan" });
-    }
-
-    return res.status(200).json(products);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-
 export default {
   addResultModel1,
   addResultModel2,
-  getResultModel1,
-  getResultModel2,
+  getResultModel,
 };

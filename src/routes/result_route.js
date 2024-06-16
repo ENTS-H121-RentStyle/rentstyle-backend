@@ -10,7 +10,6 @@ const router = Router();
 router
     .post("/model1", izinAuth, uploadMiddleware, validateAddResult, Controller.addResultModel1)
     .post("/model2", izinAuth, uploadMiddleware, validateAddResult, Controller.addResultModel2)
-    .get("/model1", Controller.getResultModel1)
-    .get("/model2", Controller.getResultModel2);
+    .get("/recommendation", Controller.getResultModel)
 
 export default router;
