@@ -4,7 +4,7 @@ const service = new ExploreService();
 
 const getAllExplore = async (req, res) => {
     try {
-        const response = await service.readAll1();
+        const response = await service.readAll();
         res.status(200).json(response);
     } catch (error) {
         res.status(500).send({ message: error.message });

@@ -24,6 +24,10 @@ const ReviewSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
+    seller_id: {
+        allowNull: false,
+        type: DataTypes.STRING
+    },
     product_id: {
         allowNull: false,
         type: DataTypes.STRING
