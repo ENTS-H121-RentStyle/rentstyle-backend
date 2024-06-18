@@ -11,7 +11,7 @@ router
   .get("/filter", tokenAuth, Controller.getFilter)
   .get("/", izinAuth, Controller.getAllOrder)
   .get("/:id", tokenAuth, Controller.getDetailOrder)
-  .post("/", tokenAuth, uploadMiddleware, validateAddOrder, Controller.addOrder)
+  .post("/", tokenAuth, uploadMiddleware, Controller.addOrder)
   .put("/:id", tokenAuth, uploadMiddleware, Controller.editOrder)
   .delete("/:id", tokenAuth, Controller.dropOrder);
 
