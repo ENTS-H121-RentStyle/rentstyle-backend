@@ -1,7 +1,7 @@
 import { ResultService } from "../services/result_service.js";
 import { validationResult } from "express-validator";
 import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
-import { getLastSunday } from "../utils/sunday.js";
+import { getLastSunday, getLastWednesday } from "../utils/sunday.js";
 import { Order } from "../models/order_model.js";
 import { User } from "../models/user_model.js";
 
@@ -70,7 +70,7 @@ const getResultModel = async (req, res) => {
     const { userId, page = 1, limit = 10 } = req.query;
 
     let idUser=userId
-    let createdAt = getLastSunday();
+    let createdAt = getLastWednesday();
     if (!idUser) {
       return res.status(400).json({ message: "userId diperlukan" });
     }
