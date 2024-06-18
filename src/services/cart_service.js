@@ -19,7 +19,7 @@ class CartService {
       include: [
         {
           model: Product,
-          attributes: ["product_name", 'image', 'rent_price'],
+          attributes: ["product_name", 'image', 'rent_price', "id"],
         },
       ],
     });
