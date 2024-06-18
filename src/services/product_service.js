@@ -19,6 +19,12 @@ class ProductService {
   async findLatest() {
     const res = await Product.findAll({
       order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: Seller,
+          attributes: ["city"],
+        },
+      ],
     });
     return res;
   }
@@ -26,6 +32,12 @@ class ProductService {
   async findCheapest() {
     const res = await Product.findAll({
       order: [["product_price", "ASC"]],
+      include: [
+        {
+          model: Seller,
+          attributes: ["city"],
+        },
+      ],
     });
     return res;
   }
@@ -33,6 +45,12 @@ class ProductService {
   async findMostExpensive() {
     const res = await Product.findAll({
       order: [["product_price", "DESC"]],
+      include: [
+        {
+          model: Seller,
+          attributes: ["city"],
+        },
+      ],
     });
     return res;
   }
@@ -55,6 +73,10 @@ class ProductService {
         {
           model: Order,
           attributes: [],
+        },
+        {
+          model: Seller,
+          attributes: ["city"],
         },
       ],
       group: ["Product.product_id"], // Group by product id
@@ -83,6 +105,10 @@ class ProductService {
         {
           model: Review,
           attributes: [],
+        },
+        {
+          model: Seller,
+          attributes: ["city"],
         },
       ],
       group: ["Product.product_id"], // Group by product id
