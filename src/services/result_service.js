@@ -10,12 +10,22 @@ class ResultService {
 
   async create(data) {
     const resultId = crypto.randomUUID();
-    const currentDate = new Date().toISOString().split("T")[0];
+
+    // Buat objek Date untuk waktu saat ini
+    const currentDate = new Date();
+
+    // Atur zona waktu ke Waktu Indonesia Barat (WIB)
+    currentDate.setHours(currentDate.getHours() + 7); // Indonesia Barat (UTC+7)
+    
+    // Format tanggal ke format ISO tanpa waktu (hanya tanggal)
+    const isoDate = currentDate.toISOString().split("T")[0];
+
     const res = await Result.create({
       ...data,
       id: resultId,
-      createdAt: currentDate,
+      createdAt: isoDate,
     });
+
     return res;
   }
 
