@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { Result } from "../models/result_model.js";
 import { Op } from "sequelize";
 import { Product } from "../models/product_model.js";
+import { Seller } from "../models/seller_model.js";
 
 class ResultService {
   constructor() {}
@@ -31,7 +32,15 @@ class ResultService {
     });
     const recommendationArray = product.recommendation.split(", ");
     const res = await Product.findAll({
-      where: { id: { [Op.in]: recommendationArray } },
+      where: {
+        id: { [Op.in]: recommendationArray },
+      },
+      include: [
+        {
+          model: Seller,
+          attributes: ["id", "city"],
+        },
+      ],
     });
     return res;
   }
