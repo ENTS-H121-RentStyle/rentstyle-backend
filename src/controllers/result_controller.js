@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
 import { getLastSunday } from "../utils/sunday.js";
 import { Order } from "../models/order_model.js";
+import { User } from "../models/user_model.js";
 
 const service = new ResultService();
 
@@ -68,15 +69,21 @@ const getResultModel = async (req, res) => {
   try {
     const { userId, page = 1, limit = 10 } = req.query;
 
+    let idUser=userId
     let createdAt = getLastSunday();
-    if (!userId) {
+    if (!idUser) {
       return res.status(400).json({ message: "userId diperlukan" });
     }
 
-    const orderCount = await Order.findAll({ where: { user_id: userId } });
+    const existingUser = await User.findByPk(idUser)
+    if(!existingUser){
+      idUser="default"
+    }
+
+    const orderCount = await Order.findAll({ where: { user_id: idUser } });
     const modelType=orderCount.length >= 10? "model2" : "model1"
 
-    const allProducts = await service.readModel(userId, createdAt, modelType);
+    const allProducts = await service.readModel(idUser, createdAt, modelType);
     const totalCount = allProducts.length;
     const paginatedProducts = paginateResults(allProducts, page, limit);
 

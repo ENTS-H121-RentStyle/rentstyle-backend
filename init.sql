@@ -30,7 +30,7 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `address`, `phone`,) VA
 }
 
 {
-  "customer_id": "1",
+  "user_id": "1",
   "category": "["Cosplay", "Formal"],
   "color": "["Putih", "Biru", "Hitam"]",
   "size": "L"

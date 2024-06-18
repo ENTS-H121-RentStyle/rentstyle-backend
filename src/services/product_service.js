@@ -69,10 +69,14 @@ class ProductService {
       attributes: [
         "id",
         "product_name",
+        "seller_id",
         "category",
         "color",
         "size",
         "rent_price",
+        "product_price",
+        "image",
+        "desc",
         [Sequelize.fn("AVG", Sequelize.col("Reviews.rating")), "avg_rating"],
       ],
       include: [

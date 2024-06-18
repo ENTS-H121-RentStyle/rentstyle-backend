@@ -8,8 +8,8 @@ class OrderService {
   constructor() {}
 
   async create(data) {
-    const orderId = crypto.randomUUID();
-    const status = "Belum dibayar";
+    const orderId = 'order_id' in data? data.order_id : crypto.randomUUID();
+    const status = 'status_order' in data? data.status_order : "Belum bayar";
     const res = await Order.create({
       ...data,
       id: orderId,
