@@ -4,6 +4,7 @@ import { Preference } from "../models/preference_model.js";
 import { User } from "../models/user_model.js";
 import { Sequelize } from "sequelize";
 import { Review } from "../models/review_model.js";
+import { Order } from "../models/order_model.js";
 
 class PreferenceService {
   constructor() {}
@@ -28,21 +29,38 @@ class PreferenceService {
           model: User,
           attributes: [
             [
-              Sequelize.fn("COUNT", Sequelize.col("Reviews.review_id")),
+              Sequelize.fn("COUNT", Sequelize.col("User->Reviews.review_id")),
               "count_num_rating_user",
             ],
             [
-              Sequelize.fn("AVG", Sequelize.col("Reviews.rating")),
+              Sequelize.fn("AVG", Sequelize.col("User->Reviews.rating")),
               "avg_rating_user",
             ],
+            [
+              Sequelize.fn("COUNT", Sequelize.col("User->Orders.order_id")),
+              "count_num_order",
+            ],
+          ],
+          include: [
+            {
+              model: Review,
+              attributes: [],
+            },
+            {
+              model: Order,
+              attributes: [], 
+            },
           ],
         },
-        {
-          model: Review,
-          attributes: [], // Selecting no attributes from Review
-        },
       ],
-      group: ["id"], // Group by user_id
+      group: [
+        "Preferences.pref_id",
+        "Preferences.user_id",
+        "Preferences.category",
+        "Preferences.color",
+        "Preferences.size",
+        "User.user_id",
+      ],
     });
 
     const transformedRes = res.map((item) => {
@@ -60,6 +78,7 @@ class PreferenceService {
         size_preference: item.size,
         count_num_rating_user: reviews.count_num_rating_user || 0, // Set default value to 0 if reviews are undefined
         avg_rating_user: reviews.avg_rating_user || null, // Set default value to null if reviews are undefined
+        count_num_order: item.count_num_order || 0
       };
     });
 

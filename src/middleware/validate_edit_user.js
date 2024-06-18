@@ -48,11 +48,11 @@ const validateEditUser = [
     .isISO8601()
     .notEmpty()
     .withMessage("Tanggal lahir harus berupa tanggal"),
+
   body("gender")
-    .optional()
-    .notEmpty()
-    .isIn("Pria", "Wanita")
-    .withMessage("Gender tidak boleh kosong"),
+      .isString()
+      .isIn(["Pria", "Wanita"])
+      .withMessage("Gender hanya boleh Pria atau Wanita."),
 
   body("image").custom((value, { req }) => {
     if (!req.file) {
