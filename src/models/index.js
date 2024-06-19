@@ -32,6 +32,7 @@ const setupModels = (sequelize) => {
 
   Cart.belongsTo(Product, { foreignKey: "product_id" });
   Favorite.belongsTo(Product, { foreignKey: "product_id" });
+  Product.hasMany(Favorite, {foreignKey: "product_id"})
 
   User.hasMany(Cart, { foreignKey: "user_id" });
   Cart.belongsTo(User, { foreignKey: "user_id" });
