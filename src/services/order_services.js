@@ -3,13 +3,14 @@ import crypto from "crypto";
 import { Order } from "../models/order_model.js";
 import { Op } from "sequelize";
 import { User } from "../models/user_model.js";
+import { Product } from "../models/product_model.js";
 
 class OrderService {
   constructor() {}
 
   async create(data) {
-    const orderId = 'order_id' in data? data.order_id : crypto.randomUUID();
-    const status = 'status_order' in data? data.status_order : "Belum bayar";
+    const orderId = "order_id" in data ? data.order_id : crypto.randomUUID();
+    const status = "status_order" in data ? data.status_order : "Belum bayar";
     const res = await Order.create({
       ...data,
       id: orderId,
@@ -18,8 +19,8 @@ class OrderService {
     return res;
   }
 
-  async readAll(){
-    const res = await Order.findAll()
+  async readAll() {
+    const res = await Order.findAll();
     return res;
   }
 
@@ -27,15 +28,14 @@ class OrderService {
     const res = await Order.findByPk(orderId, {
       include: {
         model: User, // Model yang ingin Anda sertakan
-        attributes: ['address'], // Bidang yang ingin Anda ambil dari model User
-      }
+        attributes: ["address"], // Bidang yang ingin Anda ambil dari model User
+      },
     });
     return res;
   }
-  
 
   async readFilter(userId, status) {
-    let whereCondition= { [Op.and]: [{ user_id: userId }] }
+    let whereCondition = { [Op.and]: [{ user_id: userId }] };
 
     if (status) {
       const validStatus = await Order.findOne({
@@ -52,7 +52,13 @@ class OrderService {
     }
 
     const res = await Order.findAll({
-      where:whereCondition,
+      where: whereCondition,
+      include: [
+        {
+          model: Product,
+          attributes: ["product_name"],
+        },
+      ],
     });
     return res;
   }
