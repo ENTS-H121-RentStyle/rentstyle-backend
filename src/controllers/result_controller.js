@@ -81,7 +81,7 @@ const getResultModel = async (req, res) => {
     }
 
     const orderCount = await Order.findAll({ where: { user_id: idUser } });
-    const modelType=orderCount.length >= 10? "model2" : "model1"
+    const modelType=orderCount.length >= 5? "model2" : "model1"
 
     const allProducts = await service.readModel(idUser, createdAt, modelType);
     const totalCount = allProducts.length;
