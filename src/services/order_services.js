@@ -56,7 +56,7 @@ class OrderService {
       include: [
         {
           model: Product,
-          attributes: ["product_name"],
+          attributes: ["product_name", "image"],
         },
       ],
     });
