@@ -35,8 +35,24 @@ class OrderService {
   
 
   async readFilter(userId, status) {
+    let whereCondition= { [Op.and]: [{ user_id: userId }] }
+
+    if (status) {
+      const validStatus = await Order.findOne({
+        where: { order_status: status },
+      });
+
+      if (validStatus) {
+        whereCondition[Op.or].push({
+          order_status: status,
+        });
+      } else {
+        return false;
+      }
+    }
+
     const res = await Order.findAll({
-      where: { [Op.and]: [{ user_id: userId }, { order_status: status }] },
+      where:whereCondition,
     });
     return res;
   }
