@@ -229,6 +229,12 @@ class ProductService {
           model: Review,
           where: { product_id: productId },
           limit: 2,
+          include: [
+            {
+              model: User,
+              attributes: ["name"],
+            },
+          ],
         },
       ],
     });
