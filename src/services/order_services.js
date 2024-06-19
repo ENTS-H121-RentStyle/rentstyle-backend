@@ -26,10 +26,16 @@ class OrderService {
 
   async readOne(orderId) {
     const res = await Order.findByPk(orderId, {
-      include: {
-        model: User, // Model yang ingin Anda sertakan
-        attributes: ["address"], // Bidang yang ingin Anda ambil dari model User
-      },
+      include: [
+        {
+          model: User, // Model yang ingin Anda sertakan
+          attributes: ["address"], // Bidang yang ingin Anda ambil dari model User
+        },
+        {
+          model: Product,
+          attributes: ["product_name", "image"],
+        },
+      ],
     });
     return res;
   }
