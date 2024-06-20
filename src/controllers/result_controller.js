@@ -3,8 +3,7 @@ import { validationResult } from "express-validator";
 import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
 import { Order } from "../models/order_model.js";
 import { Result } from "../models/result_model.js";
-import { getLastThursday } from "../utils/weekly.js";
-import { where } from "sequelize";
+import { getToday } from "../utils/weekly.js";
 
 const service = new ResultService();
 
@@ -71,7 +70,7 @@ const getResultModel = async (req, res) => {
     const { userId, page = 1, limit = 10 } = req.query;
 
     let idUser = userId;
-    let createdAt = getLastThursday();
+    let createdAt = getToday();
     if (!idUser) {
       return res.status(400).json({ message: "userId diperlukan" });
     }

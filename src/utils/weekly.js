@@ -51,3 +51,16 @@ export function getLastThursday() {
 
   return formattedDate;
 }
+
+export function getToday() {
+  let today = new Date();
+
+  // Hapus jam, menit, detik, dan milidetik
+  today.setHours(0, 0, 0, 0);
+  today.setUTCHours(today.getUTCHours() + 7); // Adjust timezone if necessary
+
+  // Ambil tanggal saja dalam format YYYY-MM-DD
+  let formattedDate = today.toISOString().split("T")[0];
+
+  return formattedDate;
+}
