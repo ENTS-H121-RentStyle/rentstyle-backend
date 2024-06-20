@@ -20,13 +20,9 @@ const validateEditUser = [
     .isString()
     .notEmpty()
     .withMessage("Nama tidak boleh kosong."),
-  body("address")
-    .optional()
-    .notEmpty()
-    .withMessage("Alamat tidak boleh kosong."),
+  body("address").optional().withMessage("Alamat tidak boleh kosong."),
   body("phone")
     .optional()
-    .notEmpty()
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value, { req }) => {
@@ -46,13 +42,13 @@ const validateEditUser = [
     .optional()
     .isDate()
     .isISO8601()
-    .notEmpty()
     .withMessage("Tanggal lahir harus berupa tanggal"),
 
   body("gender")
-      .isString()
-      .isIn(["Pria", "Wanita"])
-      .withMessage("Gender hanya boleh Pria atau Wanita."),
+    .optional()
+    .isString()
+    .isIn(["Pria", "Wanita"])
+    .withMessage("Gender hanya boleh Pria atau Wanita."),
 
   body("image").custom((value, { req }) => {
     if (!req.file) {
