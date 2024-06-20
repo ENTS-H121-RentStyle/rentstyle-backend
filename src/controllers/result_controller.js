@@ -3,8 +3,6 @@ import { validationResult } from "express-validator";
 import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
 import { getLastSunday, getLastWednesday } from "../utils/sunday.js";
 import { Order } from "../models/order_model.js";
-import { User } from "../models/user_model.js";
-import { Preference } from "../models/preference_model.js";
 import { Result } from "../models/result_model.js";
 
 const service = new ResultService();
