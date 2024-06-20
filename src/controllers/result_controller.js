@@ -4,6 +4,7 @@ import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
 import { Order } from "../models/order_model.js";
 import { Result } from "../models/result_model.js";
 import { getLastThursday } from "../utils/weekly.js";
+import { where } from "sequelize";
 
 const service = new ResultService();
 
@@ -75,8 +76,8 @@ const getResultModel = async (req, res) => {
       return res.status(400).json({ message: "userId diperlukan" });
     }
 
-    const existingUser = await Result.findOne({ user_id: idUser });
-    if (!existingUser.length ) {
+    const existingUser = await Result.findOne({ where: { user_id: idUser } });
+    if (!existingUser) {
       idUser = "default";
     }
 
