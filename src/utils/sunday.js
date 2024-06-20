@@ -33,5 +33,3 @@ export function getLastWednesday() {
 
   return formattedDate;
 }
-
-console.log(getLastWednesday())
