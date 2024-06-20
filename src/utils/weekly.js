@@ -33,3 +33,21 @@ export function getLastWednesday() {
 
   return formattedDate;
 }
+
+export function getLastThursday() {
+  let today = new Date();
+  let day = today.getDay(); // Hari dalam angka (0: Minggu, 1: Senin, ..., 6: Sabtu)
+  let diff = (day + 7 - 4) % 7; // Perbedaan hari untuk pindah ke hari Kamis (4: Kamis)
+
+  let lastThursday = new Date(today); // Salin tanggal hari ini
+  lastThursday.setDate(today.getDate() - diff); // Pindahkan ke hari Kamis terakhir
+
+  // Hapus jam, menit, detik, dan milidetik
+  lastThursday.setHours(0, 0, 0, 0);
+  lastThursday.setUTCHours(lastThursday.getUTCHours() + 7);
+
+  // Ambil tanggal saja dalam format YYYY-MM-DD
+  let formattedDate = lastThursday.toISOString().split("T")[0];
+
+  return formattedDate;
+}
