@@ -48,6 +48,7 @@ const validateEditUser = [
     .withMessage("Tanggal lahir harus berupa tanggal"),
 
   body("gender")
+      .optional()
       .isString()
       .isIn(["Pria", "Wanita"])
       .withMessage("Gender hanya boleh Pria atau Wanita."),
