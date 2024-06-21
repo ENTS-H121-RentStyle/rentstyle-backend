@@ -136,7 +136,7 @@ const editProduct = async (req, res) => {
 
     let imageUrl = product.image;
     if (req.file) {
-      if (product.image) {
+      if (product.image !== DEFAULT_IMAGE_PRODUCT) {
         await deleteFileFromGCS(product.image);
       }
       imageUrl = await uploadFileToGCS(req.file, "product");
@@ -165,7 +165,7 @@ const dropProduct = async (req, res) => {
     }
 
     // Hapus gambar dari Cloud Storage jika ada
-    if (product.image) {
+    if (product.image !== DEFAULT_IMAGE_PRODUCT) {
       await deleteFileFromGCS(product.image);
     }
 

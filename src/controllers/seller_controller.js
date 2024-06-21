@@ -76,7 +76,7 @@ const editSeller = async (req, res) => {
   
       let imageUrl = seller.image; 
       if (req.file) {
-        if (seller.image) {
+        if (seller.image !== DEFAULT_IMAGE_SELLER) {
           await deleteFileFromGCS(seller.image);
         }
         imageUrl = await uploadFileToGCS(req.file, "seller");
@@ -105,7 +105,7 @@ const dropSeller = async(req, res) => {
         }
 
         // Hapus gambar dari Cloud Storage jika ada
-        if (seller.image) {
+        if (seller.image !== DEFAULT_IMAGE_SELLER) {
             await deleteFileFromGCS(seller.image);
         }
 

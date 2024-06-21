@@ -60,7 +60,7 @@ const editUser = async (req, res) => {
 
     let imageUrl = user.image;
     if (req.file) {
-      if (user.image) {
+      if (user.image !== DEFAULT_IMAGE_USER) {
         await deleteFileFromGCS(user.image);
       }
       imageUrl = await uploadFileToGCS(req.file, "user");
@@ -90,7 +90,7 @@ const dropUser = async (req, res) => {
     }
 
     // Hapus gambar dari Cloud Storage jika ada
-    if (user.image) {
+    if (user.image !== DEFAULT_IMAGE_USER) {
         await deleteFileFromGCS(user.image);
     }
 
