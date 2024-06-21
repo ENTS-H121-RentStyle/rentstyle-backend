@@ -3,13 +3,14 @@ import crypto from "crypto";
 import { Order } from "../models/order_model.js";
 import { Op } from "sequelize";
 import { User } from "../models/user_model.js";
+import { Product } from "../models/product_model.js";
 
 class OrderService {
   constructor() {}
 
   async create(data) {
-    const orderId = 'order_id' in data? data.order_id : crypto.randomUUID();
-    const status = 'status_order' in data? data.status_order : "Belum bayar";
+    const orderId = "order_id" in data ? data.order_id : crypto.randomUUID();
+    const status = "status_order" in data ? data.status_order : "Belum bayar";
     const res = await Order.create({
       ...data,
       id: orderId,
@@ -18,25 +19,52 @@ class OrderService {
     return res;
   }
 
-  async readAll(){
-    const res = await Order.findAll()
+  async readAll() {
+    const res = await Order.findAll();
     return res;
   }
 
   async readOne(orderId) {
     const res = await Order.findByPk(orderId, {
-      include: {
-        model: User, // Model yang ingin Anda sertakan
-        attributes: ['address'], // Bidang yang ingin Anda ambil dari model User
-      }
+      include: [
+        {
+          model: User, // Model yang ingin Anda sertakan
+          attributes: ["address"], // Bidang yang ingin Anda ambil dari model User
+        },
+        {
+          model: Product,
+          attributes: ["product_name", "image"],
+        },
+      ],
     });
     return res;
   }
-  
 
   async readFilter(userId, status) {
+    let whereCondition = { [Op.and]: [{ user_id: userId }] };
+
+    if (status) {
+      const validStatus = await Order.findOne({
+        where: { order_status: status },
+      });
+
+      if (validStatus) {
+        whereCondition[Op.or].push({
+          order_status: status,
+        });
+      } else {
+        return false;
+      }
+    }
+
     const res = await Order.findAll({
-      where: { [Op.and]: [{ user_id: userId }, { order_status: status }] },
+      where: whereCondition,
+      include: [
+        {
+          model: Product,
+          attributes: ["product_name", "image"],
+        },
+      ],
     });
     return res;
   }

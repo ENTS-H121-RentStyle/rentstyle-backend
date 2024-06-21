@@ -22,11 +22,10 @@ const validateEditUser = [
     .withMessage("Nama tidak boleh kosong."),
   body("address")
     .optional()
-    .notEmpty()
-    .withMessage("Alamat tidak boleh kosong."),
+    .isString()
+    .withMessage("Alamat harus String."),
   body("phone")
     .optional()
-    .notEmpty()
     .isMobilePhone()
     .withMessage("Nomor telepon tidak valid.")
     .custom(async (value, { req }) => {
@@ -46,10 +45,10 @@ const validateEditUser = [
     .optional()
     .isDate()
     .isISO8601()
-    .notEmpty()
     .withMessage("Tanggal lahir harus berupa tanggal"),
 
   body("gender")
+      .optional()
       .isString()
       .isIn(["Pria", "Wanita"])
       .withMessage("Gender hanya boleh Pria atau Wanita."),

@@ -1,9 +1,9 @@
 import { ResultService } from "../services/result_service.js";
 import { validationResult } from "express-validator";
 import { paginateResults, calculateTotalPages } from "../utils/pagination.js";
-import { getLastSunday } from "../utils/sunday.js";
 import { Order } from "../models/order_model.js";
-import { User } from "../models/user_model.js";
+import { Result } from "../models/result_model.js";
+import { getToday } from "../utils/weekly.js";
 
 const service = new ResultService();
 
@@ -69,19 +69,19 @@ const getResultModel = async (req, res) => {
   try {
     const { userId, page = 1, limit = 10 } = req.query;
 
-    let idUser=userId
-    let createdAt = getLastSunday();
+    let idUser = userId;
+    let createdAt = getToday();
     if (!idUser) {
       return res.status(400).json({ message: "userId diperlukan" });
     }
 
-    const existingUser = await User.findByPk(idUser)
-    if(!existingUser){
-      idUser="default"
+    const existingUser = await Result.findOne({ where: { user_id: idUser } });
+    if (!existingUser) {
+      idUser = "default";
     }
 
     const orderCount = await Order.findAll({ where: { user_id: idUser } });
-    const modelType=orderCount.length >= 10? "model2" : "model1"
+    const modelType = orderCount.length > 5 ? "model2" : "model1";
 
     const allProducts = await service.readModel(idUser, createdAt, modelType);
     const totalCount = allProducts.length;

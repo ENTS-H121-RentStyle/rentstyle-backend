@@ -16,11 +16,12 @@ class FavoriteService {
 
   async readSearch(userId, keyword) {
     const res = await Favorite.findAll({
+      attributes: ["id"],
       where: { user_id: userId },
       include: [
         {
           model: Product,
-          attributes: ["image"],
+          attributes: ["product_id", "image"],
           where: {
             [Op.or]: [
               { product_name: { [Op.like]: `%${keyword}%` } },
@@ -36,13 +37,14 @@ class FavoriteService {
 
   async readFilter(userId) {
     const res = await Favorite.findAll({
+      attributes: ["id", ],
       where: {
         user_id: userId,
       },
       include: [
         {
           model: Product,
-          attributes: ["image"],
+          attributes: ["image", "product_id"],
         },
       ],
     });

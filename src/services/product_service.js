@@ -6,6 +6,7 @@ import { Seller } from "../models/seller_model.js";
 import { Review } from "../models/review_model.js";
 import { Sequelize, literal } from "sequelize";
 import { Order } from "../models/order_model.js";
+import { User } from "../models/user_model.js";
 
 class ProductService {
   constructor() {}
@@ -229,6 +230,12 @@ class ProductService {
           model: Review,
           where: { product_id: productId },
           limit: 2,
+          include: [
+            {
+              model: User,
+              attributes: ["name"],
+            },
+          ],
         },
       ],
     });
