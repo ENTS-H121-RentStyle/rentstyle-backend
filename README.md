@@ -29,4 +29,7 @@ $ npm run dev
 ```
 For how to use and instructions for using the API can be accessed at the following [link](https://docs.google.com/spreadsheets/d/1UNO_bQFH_D8A13frgvJbfVtU_1ssgnizov37hArZcMA/edit#gid=682881545)
 
-##
+## Deployed Backend
+```
+http://34.101.249.106
+```
